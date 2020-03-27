@@ -22,7 +22,9 @@
 </head>
 <body>
 
-
+    <% if(req.isAuthenticated()){ %>
+        <%- include("./navbar") %>
+    <% } %>
 
     <%- body %>
 
