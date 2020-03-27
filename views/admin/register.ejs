@@ -1,0 +1,43 @@
+<main>
+
+    <%- include("./sidebar2") %>
+
+
+    <div class="content">
+        <div class="row m-auto container register-wrap">
+            <form class="col-md-12 container mt-5" action="/admin/register" method="POST">
+                <h1 class="reg-title">register admin</h1>
+        
+                <div>
+                    <%- include ("../partials/messages") %>
+                    <%- include ("../partials/success_msg") %>
+                </div>
+        
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                <label for="Username">Username</label>
+                <input type="address" value="<%= typeof username != 'undefined' ? username : '' %>" name="username" class="form-control" id="Username" placeholder="Username" required />
+                </div>
+                <div class="col-md-4 mb-3">
+                <label for="password1">Password</label>
+                <input type="password" value="<%= typeof password1 != 'undefined' ? password1 : '' %>" name="password" class="form-control" id="password1" placeholder="Password" required/>
+                </div>
+                <div class="col-md-4 mb-3">
+                <label for="password2">Retype Password</label>
+                <div class="input-group">
+                    <input type="password" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" name="password2" class="form-control" id="password2" placeholder="Retype password" required/>
+                </div>
+                </div>
+            </div>
+        
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-user-plus"></i>
+                Register Admin
+            </button>
+            </form>
+        
+        </div>
+        
+    </div>
+</main>
+

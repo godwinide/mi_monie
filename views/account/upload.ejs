@@ -1,0 +1,31 @@
+<div class="container text-white">
+    <div class="container">
+        <h2 class="text-center text-white">
+            Upload passport
+        </h2>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div>
+                <%- include ("../partials/messages") %>
+                <%- include ("../partials/success_msg") %>
+            </div>
+
+            <div class="">
+                <p class="lead">Upload a JPG format passport Photograph</p>
+            </div>
+        
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                <label for="address1">Passport Photograph (Required)</label>
+                <input type="file" name="image" id="passport" accept="image/jpg">
+                <input type="hidden" name="account_number" value="<%=account_number%>">
+                </div>
+            </div>
+    
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-user-plus"></i>
+            Update Account
+        </button>
+        </form>
+    </div>
+</div>

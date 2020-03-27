@@ -1,0 +1,79 @@
+<main>
+    <%- include("./sidebar") %>
+
+    <div class="content">
+        <div class="greet">
+        </div>
+        <div class="deposit">
+            <h3 class="text-white mt-3 text-center">WITHDRAW</h3>
+            <div class="twin-block">
+
+        <form class="stage-form form mx-auto" action="/withdraw" method="POST">
+            <div>
+                <%- include ("./partials/messages") %>
+            </div>
+            <div>
+                <%- include ("./partials/success_msg") %>
+            </div>
+            <br>
+            <div class="p-2 bg-dark text-white text-center" style="text-transform: uppercase;">
+                <div id="result">
+                    
+                </div>
+            </div>
+
+        <div class="input-group">
+            <label htmlFor="account_number">Account Number:</label>
+            <input type="number" name="account_number" id="account_number"/>
+        </div>
+
+        <div class="input-group">
+            <label htmlFor="amount">Amount:</label>
+            <input type="number" name="amount" id="amount"/>
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+            <i class="fas"></i>
+            Withdraw
+        </button>
+    </form>
+    <Result/>
+    </div>
+    </div>
+    </div>
+</main>
+
+<script>
+    // get accounts
+    async function getAccounts(){
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', '/api/getAccounts');
+
+        xhr.send();
+
+        xhr.onload = async () => {
+                const accounts = await JSON.parse(xhr.response);
+                const acc = document.querySelector("#account_number");
+                const result = document.querySelector("#result");
+
+                acc.addEventListener("input", e => {
+                accounts.forEach(e => {
+                    if(acc.value == e.account_number){
+                        result.innerHTML = `
+                        <div class="row">
+                            <div class="col-md-6">Account Name: ${e.account_name}</div>
+                            <div class="col-md-6">Available Balance: ${e.account_balance}</div>
+                            <div class="col-md-6">Last Transaction: ${e.last_transaction ? (e.last_transaction.transaction_type + "(" + e.last_transaction.amount + ")") : "None" } </div>
+                        </div
+                        `;
+                    }else{
+                        result.innerHTML = ``;
+                    }
+                })
+            });
+        }
+    }
+
+    getAccounts();
+</script>

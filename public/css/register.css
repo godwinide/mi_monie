@@ -1,0 +1,18 @@
+.register-wrap form{
+    background-color: rgb(5, 70, 95);
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.reg-title{
+    display: block;
+    font-size: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    text-transform: capitalize;
+}
+
+.reg-result{
+    background: rgb(163, 160, 160);
+}

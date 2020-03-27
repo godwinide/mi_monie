@@ -1,0 +1,60 @@
+<main>
+    <%- include("./sidebar2") %>
+
+    <div class="content">
+
+        <div>
+          <br>
+            <%- include ("../partials/messages") %>
+            <%- include ("../partials/success_msg") %>
+        </div>
+
+        <div class="container row">
+            <div class="col-md-3">
+                <h2 class="text-white">Total Bills <span class="text-yellow">
+                  (₦)<%= total_bills %>
+                </span></h2>
+            </div>
+            <form class="col-md-3" action="/admin/billing" method="POST">
+                <button class="btn btn-success" type="submit">
+                  <i class="fas fa-money-bill"></i>
+                  Bill Accounts</button>
+            </form>
+        </div>
+
+    <h2 class="text-white text-center mt-3">Accounts</h2>
+    <br>
+  <div class="container text-white">
+    <table class="container mt-5 table table-striped table-dark" id="dtBasic1" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Account Name</th>
+          <th scope="col">user_id</th>
+          <th scope="col">Account Status</th>
+          <th scope="col">Account Balance</th>
+          <th scope="col">Billing Balance</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% accounts.forEach(account => {%>
+          <tr>
+            <th scope="row"><%= account.account_number %></th>
+            <td><%= account.lastname + " " + account.firstname + " " + account.middlename %></td>
+            <td><%= account.user_id %></td>
+            <td><%= account.status %></td>
+            <td><%= account.balance %></td>
+            <td><%= account.billing_balance %></td>
+            <td>
+                <a href="/details/<%=account.account_number%>" class="btn btn-info">
+                  <i class="fas fa-eye"></i>
+                  View</a>
+            </td>
+          </tr>
+        <% }) %>
+  
+      </tbody>
+    </table>
+    </div>
+</main>

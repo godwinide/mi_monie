@@ -1,0 +1,128 @@
+<main>
+    <%- include("./sidebar") %>
+
+    <div class="content">
+        <div class="greet">
+        </div>
+        <div class="deposit">
+            <h3 class="text-white mt-3 text-center">DEPOSIT</h3>
+            <div class="twin-block">
+
+            <form method="POST" action="/deposit" class="stage-form form mx-auto">
+                <div>
+                    <%- include ("./partials/messages") %>
+                </div>
+                <div>
+                    <%- include ("./partials/success_msg") %>
+                </div>
+                <br>
+                <div class="p-4 bg-dark text-white text-center" style="text-transform: uppercase;">
+                    <div id="result">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label htmlFor="accnum">Account Number:</label>
+                    <input  type="number" value="<%= typeof account_number != 'undefined' ? account_number : '' %>" name="account_number" id="account_number"/>
+                </div>
+
+                <div class="form-check mb-2 mr-sm-2 input-group">
+                    <input class="form-check-input" name="self" type="checkbox" id="self">
+                    <label class="form-check-label" for="self">
+                      Self
+                    </label>
+                  </div>
+
+            <div class="input-group">
+                <label htmlFor="accnum">Amount:</label>
+                <input type="number" value="<%= typeof amount != 'undefined' ? amount : '' %>" name="amount" id="amount"/>
+            </div>
+
+            <div class="input-group will_show">
+                <label htmlFor="firstname">First Name:</label>
+                <input type="name" value="<%= typeof firstname != 'undefined' ? firstname : '' %>" name="firstname" id="firstname"/>
+            </div>
+
+            <div class="input-group will_show">
+                <label htmlFor="lastname">Last Name:</label>
+                <input type="name" value="<%= typeof lastname != 'undefined' ? lastname : '' %>" name="lastname" id="lastname"/>
+            </div>
+
+            <div class="input-group will_show">
+                <label htmlFor="phone">Phone Number:</label>
+                <input type="phone" value="<%= typeof phone_number != 'undefined' ? phone_number : '' %>" name="phone_number" id="phone"/>
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+                <i class="fas"></i>
+                Deposit
+            </button>
+            </form>
+        </form>
+        <Result/>
+        </div>
+        </div>
+        </div>
+</main>
+
+<script>
+
+    const acc = document.querySelector("#account_number");
+    const result = document.querySelector("#result");
+    const selfCheck = document.querySelector("#self");
+    const will_show = document.querySelectorAll(".will_show");
+
+    
+
+    // check for self toggle
+    selfCheck.addEventListener("input", e => {
+        if(e.target.checked == true){
+            will_show.forEach(el => {
+                el.classList.add("no-display");
+            })
+        }else{
+            will_show.forEach(el => {
+                el.classList.remove("no-display");
+            })
+        }
+    })
+
+
+    // get accounts
+    async function getAccounts(){
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', '/api/getAccounts');
+
+        xhr.send();
+
+        xhr.onload = async () => {
+            if(xhr.status != 200){
+                getAccounts();
+            }else{
+                const accounts = await JSON.parse(xhr.response);
+                console.log(accounts);
+                acc.addEventListener("input", e => {
+                accounts.forEach(e => {
+                    if(e.account_number == acc.value){
+                        result.innerHTML = `
+                        <div class="row">
+                            <div class="col-md-6">Account Name: ${e.account_name}</div>
+                            <div class="col-md-6">Available Balance: ${e.account_balance}</div>
+                            <div class="col-md-6">Last Transaction: ${e.last_transaction ? (e.last_transaction.transaction_type + "(" + e.last_transaction.amount + ")") : "None" } </div>
+                        </div>
+                        `;
+                    }else{
+                        result.innerHTML = ``;
+                    }
+                })
+            });
+
+            }
+        }
+    }
+
+    getAccounts();
+
+
+</script>

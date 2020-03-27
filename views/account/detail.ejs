@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="container bg-dark mt-5 p-5">
+        <div class="actions">
+            <a href="/modify/<%=account.account_number %>" class="btn btn-info">
+                <i class="fas fa-edit"></i>
+                Edit
+            </a>
+            <a href="/upload/<%= account.account_number %>" class="btn btn-info">
+                <i class="fas fa-photo"></i>
+                Upload passport
+            </a>
+            <a href="/print_account/<%= account.account_number %>" class="btn btn-info">
+                <i class="fas fa-print"></i>
+                Print Account
+            </a>
+            <a href="/print_history/<%= account.account_number %>" class="btn btn-info">
+                <i class="fas fa-print"></i>
+                Print History
+            </a>
+        </div>
+        <br>
+        <h3 class="text-white" style="font-size: 1.1em;">
+            Account Name: <%= account.lastname + " " + account.firstname + " " + account.middlename %> 
+        </h3>
+        <br>
+        <div class="container text-white" style="font-size: 1.1em !important;">
+            
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    Passport Photograph
+                </span>:
+                <img class="passport" src="/passports/<%= account.account_number %>.jpg" alt="" srcset="">
+            </h3> 
+            <h3 style="font-size: 1.1em;"><span class="text-info">
+                Account Number:
+            </span> <%= account.account_number %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    Account Balance
+                </span>: <%= account.balance %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    Gender
+                </span>: <%= account.gender %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    Phone Number
+                </span>: <%= account.phone_number %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    Email
+                </span>: <%= account.email %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    BVN
+                </span>: <%= account.bvn ? account.bvn : "" %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    User ID
+                </span>: <%= account.user_id %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    Address 1
+                </span>: <%= account.address1 %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    Address 2
+                </span>: <%= account.address2 %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    Date of birth
+                </span>: <%= account.dob.toDateString() %></h3>
+            <h3 style="font-size: 1.1em;">
+                <span class="text-info">
+                    Application Date
+                </span>: <%= account.dateJoined.toDateString() %></h3>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+.login-bg{
+    background-image: url(/img/login-bg.jpg) !important;
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+
+.login-bg form{
+    background-color: #0d192eb9;
+    color: #fff;
+    margin: 5rem auto 0 auto;
+    width: 60%;
+    height: 60%;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.login-bg form input{
+    margin-bottom: 1rem !important;
+}

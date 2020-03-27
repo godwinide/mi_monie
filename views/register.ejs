@@ -1,0 +1,96 @@
+<div class="row m-auto container register-wrap">
+    <form class="col-md-12 container mt-5" action="/register/account" method="POST">
+        <h1 class="reg-title">register an account</h1>
+
+        <div>
+            <%- include ("./partials/messages") %>
+        </div>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+        <label for="firstame">First name (Required)</label>
+        <input type="firstname" value="<%= typeof firstname != 'undefined' ? firstname : '' %>" name="firstname" class="form-control" id="firstame" placeholder="First name" required />
+        </div>
+        <div class="col-md-4 mb-3">
+        <label for="lastname">Last name (Required)</label>
+        <input type="lastname" value="<%= typeof lastname != 'undefined' ? lastname : '' %>" name="lastname" class="form-control" id="lastname" placeholder="Last name" required/>
+        </div>
+        <div class="col-md-4 mb-3">
+        <label for="middlename">Middle name (optional)</label>
+        <div class="input-group">
+            <input type="middlename" value="<%= typeof middlename != 'undefined' ? middlename : '' %>" name="middlename" class="form-control" id="middlename" placeholder="Middle Name"/>
+        </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+        <label for="address1">Address 1 (Required)</label>
+        <input type="address" value="<%= typeof address1 != 'undefined' ? address1 : '' %>" name="address1" class="form-control" id="address1" placeholder="House Address" required />
+        </div>
+        <div class="col-md-4 mb-3">
+        <label for="address2">Adress 2 (Optional)</label>
+        <input type="address" value="<%= typeof address2 != 'undefined' ? address2 : '' %>" name="address2" class="form-control" id="address2" placeholder="Office Address"/>
+        </div>
+        <div class="col-md-4 mb-3">
+        <label for="phone">Phone Number (Required)</label>
+        <div class="input-group">
+            <input type="phone" value="<%= typeof phone_number != 'undefined' ? phone_number : '' %>" name="phone_number" class="form-control" id="phone" placeholder="Phone number" aria-describedby="inputGroupPrepend2" required/>
+        </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="Email">Email (Required)</label>
+            <input type="email" value="<%= typeof email != 'undefined' ? email : '' %>" name="email" class="form-control" id="Email" placeholder="Email" required/>
+            </div>
+        <div class="col-md-4 mb-3">
+        <label for="city">City (Required)</label>
+        <input type="city" value="<%= typeof city != 'undefined' ? city : '' %>" name="city" class="form-control" id="city" placeholder="City" required/>
+        </div>
+        <div class="col-md-4 mb-3">
+        <label for="state">State (Required)</label>
+        <input type="state" value="<%= typeof state != 'undefined' ? state : '' %>" name="state" class="form-control" id="state" placeholder="State" required/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="pin1">Secret PIN (Required)</label>
+            <input type="pin" name="pin1" class="form-control" id="pin1" placeholder="Enter a five digit secret pin" required/>
+            </div>
+        <div class="col-md-4 mb-3">
+        <label for="pin2">Retype PIN (Required)</label>
+        <input type="pin" name="pin2" class="form-control" id="pin2" placeholder="Retype PIN" required/>
+        </div>
+        <div class="col-md-4 mb-3">
+        <label for="balance">Initial Deposit (Optional)</label>
+        <input type="pin" name="balance" class="form-control" id="balance" placeholder="Initial deposit" required/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="bvn">BVN (Optional)</label>
+            <input type="pin" name="bvn" class="form-control" id="bvn" placeholder="BVN"/>
+            </div>
+        <div class="col-md-4 mb-3">
+            <label for="dob">Date of Birth (Optional)</label>
+            <input type="date" name="dob" class="dob datepiker" id="dob" accept="image/*">
+        </div>
+        <div class="col-md-4 mb-3">
+            <select name="gender" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        <i class="fas fa-user-plus"></i>
+        Register Account
+    </button>
+    </form>
+
+</div>

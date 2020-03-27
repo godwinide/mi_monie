@@ -1,0 +1,69 @@
+h2.title{
+    color: #fff;
+    margin-top: 2em;
+}
+
+
+.stage-form{
+    display: block;
+    width: 80%;
+    margin: 5px 10px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: rgb(5, 70, 95);
+    margin-top: 2em;
+}
+
+.stage-form label{
+    font-size: 1.2em;
+}
+
+.stage-form .input-group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.stage-form .input-group input{
+    height: 2em;
+    font-size: 1.1em;
+}
+
+.stage-form .input-group button{
+    background: rgb(5, 22, 27);
+    width: 100%;
+    margin: auto;
+    display: block;
+    padding: 10px 5px;
+    border-radius: 10px;
+    font-size: .8em;
+    color: #fff;
+    transition: .4s ease;
+    text-transform: uppercase;
+}
+
+.stage-form button:hover{
+    background-color: #fff;
+    color: grey;
+}
+
+.result{
+    width: 40%;
+    text-align: center;
+    color: #000;
+    background: lightgrey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2em;
+    text-align: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.twin-block{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

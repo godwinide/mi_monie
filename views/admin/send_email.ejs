@@ -1,0 +1,86 @@
+<main>
+    <%- include("./sidebar2") %>
+
+    <div class="content">
+        <div class="greet">
+        </div>
+        <div class="deposit">
+            <h3 class="text-white mt-3">Send Email</h3>
+            <br>
+            <div class="twin-block">
+                <form action="/login" method="POST">
+                    <div class="input-group">
+                        <input placeholder="Subject" class="form-control" type="subject" id="subject" name="subject" placeholder="subject" required>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <textarea class="form-control" name="body" id="body" cols="100" rows="13">
+                        Body...
+                        </textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <button class="btn btn-info" type="submit">
+                            Send Email
+                        </button>
+                    </div>
+                </form>
+        </div>
+        </div>
+        </div>
+</main>
+
+<script>
+
+    const acc = document.querySelector("#account_number");
+    const result = document.querySelector("#result");
+    const selfCheck = document.querySelector("#self");
+    const will_show = document.querySelectorAll(".will_show");
+
+    
+
+    // check for self toggle
+    selfCheck.addEventListener("input", e => {
+        if(e.target.checked == true){
+            will_show.forEach(el => {
+                el.classList.add("no-display");
+            })
+        }else{
+            will_show.forEach(el => {
+                el.classList.remove("no-display");
+            })
+        }
+    })
+
+
+    // get accounts
+    async function getAccounts(){
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', '/api/getAccounts');
+
+        xhr.send();
+
+        xhr.onload = async () => {
+            if(xhr.status != 200){
+                getAccounts();
+            }else{
+                const accounts = await JSON.parse(xhr.response);
+                acc.addEventListener("input", e => {
+                accounts.forEach(e => {
+                    if(e.account_number == acc.value){
+                        result.innerText = e.account_name;
+                    }else{
+                        result.innerText = "";
+                    }
+                })
+            });
+
+            }
+        }
+    }
+
+    getAccounts();
+
+
+</script>

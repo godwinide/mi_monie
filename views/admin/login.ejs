@@ -1,0 +1,28 @@
+<div class="login-bg">
+    <div class="container">
+        <div>
+            <form action="/admin/login" method="POST">
+                <h2 class="text-center text-white">Admin Login</h2>
+                <div>
+                    <%- include ("../partials/messages") %>
+                    <%- include ("../partials/success_msg") %>
+                </div>
+                <div class="input-group">
+                    <input class="form-control" type="username" id="username" name="username" placeholder="username" required>
+                </div>
+
+                <div class="input-group">
+                    <input class="form-control" type="password" id="password" name="password" placeholder="password" required>
+                </div>
+
+                <div class="input-group">
+                    <button class="btn btn-info" type="submit">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/js/speech.js"></script>

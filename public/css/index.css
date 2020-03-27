@@ -1,0 +1,251 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: rgb(5, 18, 24);
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+
+  
+  *{
+    margin: 0;
+    padding: 0;
+  }
+
+  .passport{
+    width: 100px;
+    height: 100px;
+  }
+
+  .no-display{
+    display: none !important;
+  }
+  
+  header{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  
+  header .brand-logo{
+    background: rgba(0, 0, 0, 0.883);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 4rem;
+    overflow: hidden;
+  }
+  
+  header .brand-logo a{
+    font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    color: rgb(228, 71, 23);
+    text-transform: capitalize;
+  }
+
+  header .brand-logo img{
+    height: 10rem;
+    width: 18rem;
+  }
+  
+  header .navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(31, 30, 30);
+  }
+  
+  header .navbar .left{
+    display: flex;
+  }
+  
+  header .navbar .left a{
+    text-decoration: none;
+    color: rgb(228, 71, 23);
+    text-transform: capitalize;
+    font-family: Verdana, Geneva, Tahoma, sans-serifs;
+  }
+  
+  header .navbar ul{
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    width: 60%;
+  }
+  
+  header .navbar ul a{
+    color: rgb(189, 185, 185);
+    text-decoration: none;
+    font-size: 1em;
+    text-transform: capitalize;
+    font-family: 'Roboto', sans-serif;
+    display: inline-block;
+    transition: .4s ease;
+  }
+  
+  header .navbar ul a.active{
+    color: #fff;
+  }
+  
+  header .navbar ul a:hover{
+    color: #fff;
+  }
+  
+  main{
+    display: flex;
+    background: rgb(202, 202, 202);
+  }
+  
+  main .sidebar{
+    width: 15%;
+    height: 200vh;
+    background: rgba(0, 0, 0, 0.883);;
+  }
+  
+  main .sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding-left: 25px;
+  }
+  
+  main .sidebar ul a {
+    text-decoration: none;
+    color: rgb(160, 157, 157);
+    font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
+    text-transform: capitalize;
+    display: inline-block;
+    padding: 10px 0;
+  }
+  
+  main .sidebar ul a.active{
+    color: rgb(254, 255, 251);
+  }
+  
+  main .content{
+    padding: 0 2em;
+    background: rgb(5, 18, 24);
+    width: 85%;
+  }
+  
+  main .content .greet{
+    width: 100%;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  main .content .greet h3{
+    font-size: 1.1rem;
+    padding: 10px 0;
+    font-family: 'Abril Fatface', cursive;
+    color: rgb(178, 192, 160);
+  }
+  
+  
+  main .content .summary{
+    display: flex;
+    justify-content: space-between;
+    color: rgb(235, 232, 232);
+  }
+
+  
+
+  @media (max-width:1000px){
+    main .content .summary .box{
+      width: 12rem !important;
+      margin: 1rem !important;
+    }
+  }
+  
+  main .content .summary h3{
+    border-bottom: 1px dotted #fff;
+  }
+  
+  main .content .summary .box{
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    background: rgb(3, 151, 102);
+    min-height: 8rem;
+    width: 15rem;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 2px rgb(56, 228, 171);
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  main .content .summary .box-2{
+    background: rgb(220, 20, 60);
+    box-shadow: 3px 3px 2px rgb(221, 74, 103);
+  }
+
+  main .content .summary .box-3{
+    background: rgb(128, 0, 128);
+    box-shadow: 3px 3px 2px rgb(146, 78, 146);
+  }
+  
+  main .content .summary .box-icon{
+    position: absolute;
+    top: 1px;
+    right: 1px;
+  }
+  
+  main .content .summary .box .info{
+    font-size: 1.4rem;
+  }
+  
+  .sum-title{
+    font-size: 1.2em;
+    text-transform: capitalize;
+    color: #fff;
+    padding: 2px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  main .vary .updates{
+    padding: 10px 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 5rem;
+  }
+  
+  main .vary .updates .left,
+  main .vary .updates .right{
+    background: rgb(8, 8, 8);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0;
+  }
+  
+  main .vary .updates .left{
+    width: 60%;
+  }
+  
+  main .vary .updates .right{
+    width: 30%;
+  }
+  
+  main .updates .title{
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  

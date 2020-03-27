@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Roboto&display=swap" rel="stylesheet">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- mdbootstrap -->
+    <link rel="stylesheet" href="/css/mdb.min.css">
+    <link rel="stylesheet" href="/css/datatables.min.css">
+    <!-- local css -->
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/deposit.css">
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Enaland Banking System</title>
+</head>
+<body>
+
+    <% if(req.isAuthenticated()){ %>
+        <%- include("./navbar") %>
+    <% } %>
+
+    <%- body %>
+
+    <script src="/js/jquery-3.4.1.slim.min.js" ></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/mdb.min.js"></script>
+    <script src="/js/datatables.min.js"></script>
+    <script src="/js/form.js"></script>
+
+    <script>
+        // Basic example
+        $(document).ready(function () {
+        $('#dtBasic1').DataTable({
+            "pagingType": "simple" // "simple" option for 'Previous' and 'Next' buttons only
+        });
+        $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+</body>
+</html>

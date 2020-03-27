@@ -1,0 +1,31 @@
+<main>
+    <%- include("./sidebar2") %>
+
+    <div class="content">
+        <div class="greet">
+        </div>
+        <div class="deposit">
+            <h3 class="text-white mt-3">Send SMS</h3>
+            <br>
+            <div class="twin-block">
+                <form action="/login" method="POST">
+                    <div class="input-group">
+                        <input placeholder="Subject" class="form-control" type="subject" id="subject" name="subject" placeholder="subject" required>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <textarea class="form-control" name="body" id="body" cols="100" rows="13">
+                        Body...
+                        </textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <button class="btn btn-info" type="submit">
+                            Send Email
+                        </button>
+                    </div>
+                </form>
+        </div>
+        </div>
+        </div>
+</main>

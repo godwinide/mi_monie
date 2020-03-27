@@ -1,0 +1,27 @@
+<main>
+    <%- include("./sidebar") %>
+
+    <div class="content">
+        <div class="greet">
+        </div>
+        <div class="deposit">
+            <h3 class="text-white mt-3 text-center">Get Statement</h3>
+            <div class="twin-block">
+
+        <form class="stage-form form mx-auto">
+
+        <div class="input-group">
+            <label htmlFor="account_number">Account Number:</label>
+            <input type="number" name="account_number" id="account_number"/>
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+            <i class="fas"></i>
+            Get Statement
+        </button>
+    </form>
+    <Result/>
+    </div>
+    </div>
+    </div>
+</main>

@@ -1,0 +1,54 @@
+<main>
+    <%- include("./sidebar2") %>
+    <div class="content">
+        <div class="container bg-dark mt-5 p-5">
+            <div class="actions">
+                <a href="/admin/modify/<%=admin.id %>" class="btn btn-info">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </a>
+            </div>
+            <br>
+            <div class="container text-white" style="font-size: 1.1em !important;">
+    
+                <h3 style="font-size: 1.1em;"><span class="text-info">
+                    Username:
+                </span> <%= admin.username %></h3>
+                <h3 style="font-size: 1.1em;">
+                    <span class="text-info">
+                        Teller_ID
+                    </span>: <%= admin.teller_id %></h3>
+
+                <h2>Transactions by <%= admin.teller_id %></h2>
+                <br>
+                <div class="container text-white">
+                    <table id="dtBasic" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" style="font-size: .8rem; color: rgb(231, 225, 225);">
+                        <thead>
+                          <tr>
+                            <th scope="col">Account</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% history.forEach(hist => { %>
+                                <tr>
+                                    <th scope="row">
+                                        <%= hist.account_number %> - 
+                                        <%= hist.account? hist.account.lastname + " " + hist.account.firstname + " " + hist.account.middlename : "" %>
+                                    </th>
+                                    <td><%= hist.transaction_type %> </td>
+                                    <td><%= hist.amount %></td>
+                                    <td class="date-value">
+                                        <%= hist.date.toLocaleDateString() %> &nbsp;
+                                        <%= hist.date.toLocaleTimeString() %> 
+                                    </td>
+                                </tr>
+                            <%})%>
+                        </tbody>
+                      </table>
+                </div>
+        </div>
+    </div>
+</main>

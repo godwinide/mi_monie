@@ -1,0 +1,36 @@
+<main>
+    <%- include("./sidebar2.ejs") %>
+ 
+ <div class="content">
+ <div class="greet">
+     <h3>Admins</h3>
+ </div>
+ <div> 
+    <div class="container text-white">
+        <table class="container mt-5 table table-striped table-dark" id="dtBasic1" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Teller ID</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% accounts.forEach(account => {%>
+              <tr>
+                <td><%= account.username %></td>
+                <td><%= account.teller_id %></td>
+                <td>
+                    <a href="/admin/detail/<%=account.id%>" class="btn btn-info">
+                      <i class="fas fa-eye"></i>
+                      View</a>
+                </td>
+              </tr>
+            <% }) %>
+      
+          </tbody>
+        </table>
+      </div>
+ </div>
+ </div>
+ </main>

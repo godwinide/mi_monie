@@ -1,0 +1,141 @@
+<main>
+   <%- include("./sidebar.ejs") %>
+
+<div class="content">
+<div class="greet">
+    <h3>Welcome <%= req.user.username %>
+        <i class="fas fa-smile"></i>
+    </h3>
+</div>
+<div> 
+<h3 class="sum-title">Today's summary</h3>
+    <hr/>
+    <br/>
+    <!-- data -->
+    <input type="hidden" id="data"
+     value="<%= deposits.total_today %> <%= withdraws.total_today %> <%= transfers.total_today %> <%= available.balance %>"/>
+    <div class="summary">
+        <div class="box box-1">
+            <h3>Deposits</h3>
+            <i class="box-icon fas fa-piggy-bank fa-3x text-warning"></i>
+            <div class="info">
+                <h4>Total <span class="text-warning"
+                    >(₦)<%= deposits.total_today %></span></h4>
+                <h4>Transactions <span><%= deposits.count %></span></h4>
+            </div>
+        </div>
+
+        <div class="box box-2">
+            <h3>Withdraws</h3>
+            <i class="box-icon fas fa-money-bill fa-3x text-warning"></i>
+            <div class="info">
+                <h4>Total <span class="text-warning">
+                    (₦)<%= withdraws.total_today %></span></h4>
+                <h4>Transactions <span><%= withdraws.count %></span></h4>
+            </div>
+        </div>
+
+        <div class="box box-3">
+            <h3>Transfers</h3>
+            <i class="box-icon fas fa-exchange-alt fa-3x text-warning"></i>
+            <div class="info">
+                <h4>Total <span class=" text-warning">
+                    (₦)<%= transfers.total_today %></span></h4>
+                <h4>Transactions <span><%= transfers.count %></span></h4>
+            </div>
+        </div>
+
+        <div class="box box-3" style="background-color: rgb(146, 39, 80);">
+            <h3>Available Balance</h3>
+            <div class="info">
+                    <h4 class="text-white">(₦)<%= available.balance %></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="updates row mt-5">
+        <div class="left col-md-6">
+            <h3 class="title">
+                Stats
+            </h3>
+
+            <div>
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+            
+        </div>
+        <div class="right col-md-6" style="background-color: rgb(7, 15, 31)">
+            <h3 class="title text-warning">
+                Last Ten Transactions
+                <br>
+
+                <table id="dtBasic" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%" style="font-size: .8rem; color: rgb(231, 225, 225);">
+                    <thead>
+                      <tr>
+                        <th scope="col">Account Number</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% history.forEach(hist => { %>
+                            <tr>
+                                <th scope="row"><%= hist.account_number %></th>
+                                <td><%= hist.transaction_type %> </td>
+                                <td><%= hist.amount %></td>
+                                <td class="date-value">
+                                    <%= hist.date.toLocaleDateString() %> &nbsp;
+                                    <%= hist.date.toLocaleTimeString() %> 
+                                </td>
+                            </tr>
+                        <%})%>
+                    </tbody>
+                  </table>
+            </h3>
+        </div>
+    </div>
+</div>
+</div>
+</main>
+
+<script src="/js/charts.js"></script>
+<script>
+    window.onload = () => {
+    const ctx = document.querySelector('#myChart');
+    const data = document.querySelector('#data').value.split(" ");
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Deposit', 'Withdraw', 'Transfer', 'Availbale Balance'],
+            datasets: [{
+                // label: 'Transaction Chart',
+                data,
+                backgroundColor: [
+                    'rgb(3, 151, 102)',
+                    'rgb(220, 20, 60)',
+                    'rgb(128, 0, 128)',
+                    'rgb(146, 39, 80)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgb(146, 39, 80)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    }
+</script>

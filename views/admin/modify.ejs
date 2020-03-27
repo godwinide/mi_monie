@@ -1,0 +1,40 @@
+<div class="container text-white">
+    <div class="container">
+        <h2 class="text-center text-white">
+            Modify Teller
+        </h2>
+
+        <form action="/admin/modify" method="POST">
+            <div>
+                <%- include ("../partials/messages") %>
+            </div>
+            <div>
+                <%- include ("../partials/success_msg") %>
+            </div>
+
+            <input type="hidden" name="id" value="<%= id %>">
+
+    
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="pin1">Username </label>
+                    <input type="pin" name="username" value="<%= typeof username != 'undefined' ? username: '' %>"  class="form-control" id="pin1" placeholder="Enter a five digit secret pin"/>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="pin1">Password </label>
+                    <input type="password" name="password" class="form-control" id="pin1" placeholder="Enter a five digit secret pin"/>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="pin2">Retype Password </label>
+                    <input type="password" name="password2" class="form-control" id="pin2" placeholder="Retype PIN" />
+                </div>
+            </div>
+
+    
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-user-plus"></i>
+                Update Teller
+            </button>
+        </form>
+    </div>
+</div>
