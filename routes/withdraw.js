@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Account = require("../model/Account");
 const History = require("../model/History");
-
+const uuid = require("uuid").v4;
 const sendEmail = require("../utils/sendMail");
 
 const { ensureAuthenticated } = require('../config/auth');
@@ -38,6 +38,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
                 //add to general history
                 const new_history = {
                     transaction_type: "debit",
+                    id: uuid(),
                     amount,
                     account_number,
                     teller_id: req.user.teller_id,
@@ -73,6 +74,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
                 //add to general history
                 const new_history = {
                     transaction_type: "debit",
+                    id: uuid(),
                     amount,
                     credit: "",
                     debit: amount,

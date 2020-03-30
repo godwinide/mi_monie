@@ -1,3 +1,3 @@
 module.exports = {
-    mongoURI: "mongodb://localhost/posProject" 
+    mongoURI: "mongodb+srv://Godwin:godwin222sm@cluster0-q4j31.mongodb.net/test?retryWrites=true&w=majority"
 };

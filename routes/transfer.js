@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Account = require("../model/Account");
 const History = require("../model/History");
 const sendMail = require("../utils/sendMail");
+const uuid = require("uuid").v4;
 
 const { ensureAuthenticated } = require('../config/auth');
 
@@ -70,6 +71,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
                 const new_account_history2 = account2.history;                
 
                 new_account_history1.push({
+                    id: uuid(),
                     transaction_type: "debit",
                     debit: parseInt(amount),
                     credit: "",
@@ -86,6 +88,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
 
 
                 new_account_history2.push({
+                    id: uuid(),
                     transaction_type: "credit",
                     debit: "",
                     credit: parseInt(amount),
@@ -139,42 +142,12 @@ router.post("/", ensureAuthenticated, (req,res) => {
 
                 Account.findOneAndUpdate(
                     {account_number},
-                    {$inc:{"balance": -parseInt(amount), "billing_balance": account1.billing_balance + 3}, history: {
-                        transaction_type: "debit",
-                        debit: parseInt(amount),
-                        credit: "",
-                        amount,
-                        description: `Cash transfer to ${account2.account_number} ${account2.lastname} ${account2.firstname} ${account2.middlename}`,
-                        account_number,
-                        date: new Date(),
-                        teller_id: req.user.teller_id,
-                        current_balance: account1.balance,
-                        availavble_balance: (parseInt(account1.balance) - parseInt(amount)),
-                        balance: (parseInt(account1.balance) - parseInt(amount)),
-                        self: true,
-                        status: "success"
-                    }}
+                    {$inc:{"balance": -parseInt(amount), "billing_balance": account1.billing_balance + 3}, history: new_account_history1}
                 )
                 .then(() => {
                     Account.findOneAndUpdate(
                         {account_number: account_number2},
-                        {$inc:{"balance": parseInt(amount), "billing_balance": account2.billing_balance + 3}, history: {
-                            transaction_type: "credit",
-                            debit: "",
-                            credit: parseInt(amount),
-                            amount,
-                            account_number,
-                            date: new Date(),
-                            teller_id: req.user.teller_id,
-                            current_balance: account2.balance,
-                            availavble_balance: (parseInt(account2.balance) + parseInt(amount)),
-                            balance: (parseInt(account2.balance) + parseInt(amount)),
-                            self: false,
-                            firstname: account1.firstname,
-                            lastname: account1.lastname,
-                            phone_number: account1.phone_number,
-                            status: "success"
-                        }}
+                        {$inc:{"balance": parseInt(amount), "billing_balance": account2.billing_balance + 3}, history: new_account_history2}
                     )
                     .then(() => {
                         genHist1.save()
