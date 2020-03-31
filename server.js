@@ -86,6 +86,6 @@ app.use("/transfer", require("./routes/transfer"));
 // API routes
 app.use("/api/getAccounts", require("./routes/api/getAccounts"))
 
-const PORT = process.env.PORT || 1010;
+const PORT = process.env.PORT || 2020;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
