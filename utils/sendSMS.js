@@ -1,5 +1,5 @@
 const welcome = require("../sms_templates/welcome");
-const alert = require("../sms_templates/welcome");
+const alert = require("../sms_templates/alert");
 
 function sendSMS(account, amount, trans_type, transaction, pin=null){
     switch(trans_type){

@@ -87,10 +87,18 @@
         </div>
     </div>
 
-    <button class="btn btn-primary" type="submit">
+    <button class="btn btn-primary" type="submit" id="regBtn">
         <i class="fas fa-user-plus"></i>
         Register Account
     </button>
     </form>
 
 </div>
+
+<script>
+    const regBtn = document.querySelector("#regBtn");
+
+    regBtn.addEventListener("click", e=> {
+        setTimeout(()=>e.target.setAttribute("disabled", "true"))
+    })
+</script>

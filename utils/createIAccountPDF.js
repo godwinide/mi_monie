@@ -100,8 +100,8 @@ function generateFooter(doc) {
   doc
     .fontSize(10)
     .text("For enquiries contact us:", 50, top + 30)
-    .text("Phone: 08078561982", 50, top + 50)
-    .text("Email: enaland.com", 50, top + 70)
+    .text("Phone: 09030616738", 50, top + 50)
+    .text("Email: support@enaland.com", 50, top + 70)
     .text("website: enaland.com", 50, top + 90)
 }
 
