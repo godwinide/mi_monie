@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const Account = require("../model/Account");
 const utils = require("../utils/utils");
 const sendMail = require("../utils/sendMail");
+const sendSMS = require("../utils/sendSMS");
 
 const { ensureAuthenticated } = require('../config/auth');
 
@@ -136,7 +137,9 @@ router.post("/account", ensureAuthenticated, async (req,res) => {
                         // save user
                         newAccount.save()
                         .then((account) => {
-                            sendMail(account, null, "welcome_email", {})
+                            // send sms
+                            sendSMS(account, null, "welcome_sms", {}, pin);
+                            sendMail(account, null, "welcome_email", {});
                             return res.render("success_views/reg_success",{
                                 req,
                                 account_number: newAccount.account_number,

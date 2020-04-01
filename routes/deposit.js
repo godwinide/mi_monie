@@ -3,7 +3,9 @@ const Account = require("../model/Account");
 const History = require("../model/History");
 const uuid = require("uuid").v4;
 
+
 const sendEmail = require("../utils/sendMail");
+const sendSMS = require("../utils/sendSMS");
 
 const { ensureAuthenticated } = require('../config/auth');
 
@@ -116,6 +118,9 @@ router.post("/", ensureAuthenticated, (req,res) => {
                     )
                     .then(async () => {
                         await success.push({msg: "deposit successful"});
+                        // send sms
+                        sendSMS(account, amount, "transaction", new_account_history)
+                        // send email
                         sendEmail(account, amount, "transaction", new_account_history);
                         return res.render("deposit", {
                             req,
@@ -198,6 +203,9 @@ router.post("/", ensureAuthenticated, (req,res) => {
                     )
                     .then(async () => {
                         await success.push({msg: "deposit successful"});
+                        // send sms
+                        sendSMS(account, amount, "transaction", new_account_history)
+                        // send email
                         sendEmail(account, amount, "transaction", new_account_history);
                         return res.render("deposit", {
                             req,

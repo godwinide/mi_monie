@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Account = require("../model/Account");
 const History = require("../model/History");
 const sendMail = require("../utils/sendMail");
+const sendSMS = require("../utils/sendSMS");
 const uuid = require("uuid").v4;
 
 const { ensureAuthenticated } = require('../config/auth');
@@ -155,6 +156,41 @@ router.post("/", ensureAuthenticated, (req,res) => {
                             genHist2.save()
                             .then(async () => {
                                 await success.push({msg: "Transfer successful"});
+                                // send sms
+                                sendSMS(account1, amount, "transaction", {
+                                    transaction_type: "debit",
+                                    debit: parseInt(amount),
+                                    credit: "",
+                                    amount,
+                                    account_number,
+                                    description: `Cash transfer to ${account2.account_number} ${account2.lastname} ${account2.firstname} ${account2.middlename} - ${account2.phone_number}`,
+                                    date: new Date(),
+                                    teller_id: req.user.teller_id,
+                                    current_balance: account1.balance,
+                                    availavble_balance: (parseInt(account1.balance) - parseInt(amount)),
+                                    balance: (parseInt(account1.balance) - parseInt(amount)),
+                                    self: true,
+                                    status: "success"
+                                })
+                                sendSMS(account2, amount, "transaction", {
+                                    transaction_type: "credit",
+                                    debit: "",
+                                    credit: parseInt(amount),
+                                    description: `Cash transfer from ${account1.account_number} ${account1.lastname} ${account1.firstname} ${account1.middlename} - ${account1.phone_number}`,
+                                    amount,
+                                    account_number,
+                                    date: new Date(),
+                                    teller_id: req.user.teller_id,
+                                    current_balance: account2.balance,
+                                    availavble_balance: (parseInt(account2.balance) + parseInt(amount)),
+                                    balance: (parseInt(account2.balance) + parseInt(amount)),
+                                    self: false,
+                                    firstname: account1.firstname,
+                                    lastname: account1.lastname,
+                                    phone_number: account1.phone_number,
+                                    status: "success"
+                                })
+                                // send email
                                 sendMail(account1, amount, "transaction", {
                                     transaction_type: "debit",
                                     debit: parseInt(amount),
