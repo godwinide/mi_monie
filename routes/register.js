@@ -138,7 +138,7 @@ router.post("/account", ensureAuthenticated, async (req,res) => {
                         newAccount.save()
                         .then((account) => {
                             // send sms
-                            sendSMS(account, null, "welcome_sms", {}, pin);
+                            sendSMS(account, null, "welcome_sms", {}, pin2);
                             sendMail(account, null, "welcome_email", {});
                             return res.render("success_views/reg_success",{
                                 req,

@@ -1,7 +1,7 @@
 const welcome = require("../sms_templates/welcome");
 const alert = require("../sms_templates/welcome");
 
-function sendSMS(account, amount, trans_type, transaction, pin){
+function sendSMS(account, amount, trans_type, transaction, pin=null){
     switch(transaction){
         case "welcome_sms":
             welcome(account, pin)
