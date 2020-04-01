@@ -12,7 +12,7 @@ module.exports = function (account, amount, trans_type, transaction){
         Teller_ID: ${transaction.teller_ID}
         Value Date: ${new Date().toLocaleDateString()}`
 
-        axios(`https://portal.nigeriabulksms.com/api/?username=enaland39@gmail.com&password=doxabet2020&message=${body}&sender=mymonie&verbose=true&mobiles=${account.phone_number}`)
+        axios(`https://portal.nigeriabulksms.com/api/?username=enaland39@gmail.com&password=doxabet2020&message=${body}&sender=mymonie&verbose=true&mobiles=234${String(account.phone_number).slice(1)}`)
         .then(res => {
             console.log(res.data);
         })
