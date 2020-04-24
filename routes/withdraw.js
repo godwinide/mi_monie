@@ -118,9 +118,9 @@ router.post("/", ensureAuthenticated, (req,res) => {
                             
                             success.push({msg: "Withdraw successful"})
                             // send sms
-                            sendSMS(account, amount, "transaction", new_account_history)
+                            sendSMS(account, amount, "transaction", new_history)
                             // send email
-                            sendEmail(account, amount, "transaction", new_account_history);
+                            sendEmail(account, amount, "transaction", new_history);
                             setTimeout(()=>{
                                 return res.render("withdraw", {
                                     req,
