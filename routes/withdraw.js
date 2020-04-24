@@ -115,11 +115,16 @@ router.post("/", ensureAuthenticated, (req,res) => {
                             {balance: new_history.balance,$inc:{billing_balance: account.billing_balance + 3}, history: account_history}
                         )
                         .then(async () => {
-                            await success.push({msg: "Withdraw successful"})
-                            // send sms
-                            sendSMS(account, amount, "transaction", new_account_history)
-                            // send email
-                            sendEmail(account, amount, "transaction", new_account_history);
+                            try{
+                                await success.push({msg: "Withdraw successful"})
+                                // send sms
+                                sendSMS(account, amount, "transaction", new_account_history)
+                                // send email
+                                sendEmail(account, amount, "transaction", new_account_history);
+                            }
+                            catch(e){
+                                console.log(err);
+                            }
                             return res.render("withdraw", {
                                 req,
                                 success
