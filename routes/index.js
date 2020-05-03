@@ -73,8 +73,10 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                     data.transfer.total_today += e.amount;
                 }
             });
+
+            return data;
         })
-        .then(()=> {
+        .then((data)=> {
                 const {withdraw, deposit} = data;
                 data.available.balance = deposit.total - withdraw.total;
                 const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
