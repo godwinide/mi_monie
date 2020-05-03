@@ -59,7 +59,7 @@ router.get("/", ensureAuthenticated, async (req,res) => {
     function doWithDraw(){
         // withdraws
         return new Promise((resolve, reject) => {
-            withdraws.forEach(e => {
+            withdraws.forEach((e, index, arr) => {
                 const date = new Date();
                 const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
                 const trans_date = new Date(`${e.date}`);
@@ -81,7 +81,7 @@ router.get("/", ensureAuthenticated, async (req,res) => {
     // transfers
     function doTransfer(){
         return new Promise((resolve,reject) => {
-            transfers.forEach(e => {
+            transfers.forEach((e, index, arr) => {
                 const date = new Date();
                 const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
                 const trans_date = new Date(`${e.date}`);
