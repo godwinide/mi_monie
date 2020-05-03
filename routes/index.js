@@ -105,8 +105,9 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                 .then(() => {
                     const {withdraw, deposit} = data;
                     data.available.balance = deposit.total - withdraw.total;
+                    return data;
                 })
-                .then(()=> {
+                .then((data)=> {
                     const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
                     setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
                 })
