@@ -49,7 +49,7 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                     data.deposit.total += e.amount
                 }
 
-                if(index ===arr.length){
+                if(index == arr.length-1){
                     resolve("done")
                 }
             });
@@ -71,7 +71,7 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                     data.withdraw.total += e.amount
                 }
 
-                if(index ===arr.length){
+                if(index == arr.length-1){
                     resolve("done")
                 }
             });
@@ -90,7 +90,7 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                     data.transfer.total_today += e.amount;
                 }
 
-                if(index ===arr.length){
+                if(index == arr.length-1){
                     resolve("done")
                 }
             });
