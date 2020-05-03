@@ -34,87 +34,54 @@ router.get("/", ensureAuthenticated, async (req,res) => {
 
 
     // deposits
+    const rd = deposits.forEach(e => {
+        const date = new Date();
+        const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
+        const trans_date = new Date(`${e.date}`);
+        if(trans_date <= today){
+            data.deposit.count++;
+            data.deposit.total_today += e.amount;
+            data.deposit.total += e.amount;
+        }else{
+            data.deposit.total += e.amount
+        }
+    });
 
-    function doDeposit(){
-        return new Promise((resolve, reject) => {
-            deposits.forEach((e, index, arr) => {
-                const date = new Date();
-                const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
-                const trans_date = new Date(`${e.date}`);
-                if(trans_date >= today){
-                    data.deposit.count++;
-                    data.deposit.total_today += e.amount;
-                    data.deposit.total += e.amount;
-                }else{
-                    data.deposit.total += e.amount
-                }
-
-                if(index == arr.length-1){
-                    resolve("done")
-                }
-            });
-        })
-    }
-
-    function doWithDraw(){
-        // withdraws
-        return new Promise((resolve, reject) => {
-            withdraws.forEach((e, index, arr) => {
-                const date = new Date();
-                const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
-                const trans_date = new Date(`${e.date}`);
-                if(trans_date >= today){
-                    data.withdraw.count++;
-                    data.withdraw.total_today += e.amount;
-                    data.withdraw.total += e.amount;
-                }else{
-                    data.withdraw.total += e.amount
-                }
-
-                if(index == arr.length-1){
-                    resolve("done")
-                }
-            });
-        })
-    }
+    // withdraws
+    const rw = withdraws.forEach(e => {
+        const date = new Date();
+        const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
+        const trans_date = new Date(`${e.date}`);
+        if(trans_date <= today){
+            data.withdraw.count++;
+            data.withdraw.total_today += e.amount;
+            data.withdraw.total += e.amount;
+        }else{
+            data.withdraw.total += e.amount
+        }
+    });
 
     // transfers
-    function doTransfer(){
-        return new Promise((resolve,reject) => {
-            if(transfers.length == 0){
-                resolve(data);
-            }
-            transfers.forEach((e, index, arr) => {
-                const date = new Date();
-                const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
-                const trans_date = new Date(`${e.date}`);
-                if(trans_date >= today){
-                    data.transfer.count++;
-                    data.transfer.total_today += e.amount;
-                }
-                if(index == arr.length-1){
-                    resolve(data);
-                }
-            });
-        })
-    }
+    const rt = transfers.forEach(e => {
+        const date = new Date();
+        const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
+        const trans_date = new Date(`${e.date}`);
+        if(trans_date <= today){
+            data.transfer.count++;
+            data.transfer.total_today += e.amount;
+        }
+    });
 
-        doWithDraw()
-        .then(()=> {
-            doDeposit()
-            .then(() => {
-                doTransfer()
-                .then(data => {
-                    const {withdraw, deposit} = data;
-                    data.available.balance = deposit.total - withdraw.total;
-                    return data;
-                })
-                .then((data)=> {
-                    const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
-                    setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
-                })
-            })
+    Promise.all([rd,rw,rt])
+        .then(() => {
+            const {withdraw, deposit} = data;
+            data.available.balance = deposit.total - withdraw.total;
         })
+        .then(()=> {
+            const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
+            setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
+        })
+
 
 
 });
