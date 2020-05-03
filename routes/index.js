@@ -84,6 +84,7 @@ router.get("/", ensureAuthenticated, async (req,res) => {
     function doTransfer(){
         return new Promise((resolve,reject) => {
             console.log("doing transfwer")
+            console.log(transfers)
             transfers.forEach((e, index, arr) => {
                 const date = new Date();
                 const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
