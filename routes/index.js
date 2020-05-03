@@ -88,17 +88,19 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                 const date = new Date();
                 const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
                 const trans_date = new Date(`${e.date}`);
-                if(trans_date >= today){
-                    data.transfer.count++;
-                    data.transfer.total_today += e.amount;
-                }else{
 
-                }
+                console.log(index,arr)
 
-                if(index == arr.length-1){
+                if(index == arr.length-1 && trans_date >= today){
                     console.log("breakpoint3")
                     resolve("done");
                 }
+
+                else if(trans_date >= today){
+                    data.transfer.count++;
+                    data.transfer.total_today += e.amount;
+                }
+
             });
         })
     }
