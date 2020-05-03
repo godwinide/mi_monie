@@ -33,57 +33,53 @@ router.get("/", ensureAuthenticated, async (req,res) => {
     const history = await History.find({status: "success"}).sort({date: -1}).limit(10);
 
 
-    // deposits
-    const rd = deposits.forEach(e => {
-        const date = new Date();
-        const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
-        const trans_date = new Date(`${e.date}`);
-        if(trans_date >= today){
-            data.deposit.count++;
-            data.deposit.total_today += e.amount;
-            data.deposit.total += e.amount;
-        }else{
-            data.deposit.total += e.amount
-        }
-    });
+    Promise.all(deposits, withdraws, transfers, history)
+        .then((deposits, withdraws, transfers, history) => {
+                    // deposits
+            const rd = deposits.forEach(e => {
+                const date = new Date();
+                const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
+                const trans_date = new Date(`${e.date}`);
+                if(trans_date >= today){
+                    data.deposit.count++;
+                    data.deposit.total_today += e.amount;
+                    data.deposit.total += e.amount;
+                }else{
+                    data.deposit.total += e.amount
+                }
+            });
 
-    // withdraws
-    const rw = withdraws.forEach(e => {
-        const date = new Date();
-        const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
-        const trans_date = new Date(`${e.date}`);
-        if(trans_date >= today){
-            data.withdraw.count++;
-            data.withdraw.total_today += e.amount;
-            data.withdraw.total += e.amount;
-        }else{
-            data.withdraw.total += e.amount
-        }
-    });
+            // withdraws
+            const rw = withdraws.forEach(e => {
+                const date = new Date();
+                const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
+                const trans_date = new Date(`${e.date}`);
+                if(trans_date >= today){
+                    data.withdraw.count++;
+                    data.withdraw.total_today += e.amount;
+                    data.withdraw.total += e.amount;
+                }else{
+                    data.withdraw.total += e.amount
+                }
+            });
 
-    // transfers
-    const rt = transfers.forEach(e => {
-        const date = new Date();
-        const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
-        const trans_date = new Date(`${e.date}`);
-        if(trans_date >= today){
-            data.transfer.count++;
-            data.transfer.total_today += e.amount;
-        }
-    });
-
-    setTimeout(()=>{
-        Promise.all([rd,rw,rt])
-        .then(() => {
-            const {withdraw, deposit} = data;
-            data.available.balance = deposit.total - withdraw.total;
-            return data;
+            // transfers
+            const rt = transfers.forEach(e => {
+                const date = new Date();
+                const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
+                const trans_date = new Date(`${e.date}`);
+                if(trans_date >= today){
+                    data.transfer.count++;
+                    data.transfer.total_today += e.amount;
+                }
+            });
         })
-        .then((data)=> {
-            const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
-            res.render("dashboard", {req, withdraws, transfers, deposits, history, available})
+        .then(()=> {
+                const {withdraw, deposit} = data;
+                data.available.balance = deposit.total - withdraw.total;
+                const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
+                res.render("dashboard", {req, withdraws, transfers, deposits, history, available})
         })
-    },1000)
 
 });
 
