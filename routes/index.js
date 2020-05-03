@@ -38,13 +38,11 @@ router.get("/", ensureAuthenticated, async (req,res) => {
         const date = new Date();
         const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
         const trans_date = new Date(`${e.date}`);
-        if(trans_date <= today){
             data.deposit.count++;
             data.deposit.total_today += e.amount;
             data.deposit.total += e.amount;
-        }else{
             data.deposit.total += e.amount
-        }
+        
     });
 
     // withdraws
@@ -52,13 +50,10 @@ router.get("/", ensureAuthenticated, async (req,res) => {
         const date = new Date();
         const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
         const trans_date = new Date(`${e.date}`);
-        if(trans_date <= today){
             data.withdraw.count++;
             data.withdraw.total_today += e.amount;
             data.withdraw.total += e.amount;
-        }else{
             data.withdraw.total += e.amount
-        }
     });
 
     // transfers
@@ -66,10 +61,8 @@ router.get("/", ensureAuthenticated, async (req,res) => {
         const date = new Date();
         const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
         const trans_date = new Date(`${e.date}`);
-        if(trans_date <= today){
             data.transfer.count++;
             data.transfer.total_today += e.amount;
-        }
     });
 
     Promise.all([rd,rw,rt])
