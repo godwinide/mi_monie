@@ -84,24 +84,18 @@ router.get("/", ensureAuthenticated, async (req,res) => {
     function doTransfer(){
         return new Promise((resolve,reject) => {
             console.log("doing transfwer")
-            console.log(transfers)
             transfers.forEach((e, index, arr) => {
                 const date = new Date();
                 const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
                 const trans_date = new Date(`${e.date}`);
-
-                console.log(index,arr)
-
-                if(index == arr.length-1 && trans_date >= today){
-                    console.log("breakpoint3")
-                    resolve("done");
-                }
-
-                else if(trans_date >= today){
+                if(trans_date >= today){
                     data.transfer.count++;
                     data.transfer.total_today += e.amount;
                 }
-
+                if(index == arr.length-1 || arr.length == 0){
+                    console.log("breakpoint3")
+                    resolve("done");
+                }
             });
         })
     }
