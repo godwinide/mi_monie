@@ -90,11 +90,13 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                 if(trans_date >= today){
                     data.transfer.count++;
                     data.transfer.total_today += e.amount;
+                }else{
+
                 }
 
                 if(index == arr.length-1){
                     console.log("breakpoint3")
-                    resolve("done")
+                    resolve("done");
                 }
             });
         })
