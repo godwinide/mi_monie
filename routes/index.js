@@ -97,20 +97,21 @@ router.get("/", ensureAuthenticated, async (req,res) => {
         })
     }
 
-    const dd = doDeposit();
-    const dw = doWithDraw();
-    const dt = doTransfer();
-
-    Promise.all([dd, dt, dw])
-        .then(() => {
-            const {withdraw, deposit} = data;
-            data.available.balance = deposit.total - withdraw.total;
-        })
+        doWithDraw()
         .then(()=> {
-            const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
-            setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
+            doDeposit()
+            .then(() => {
+                doTransfer()
+                .then(() => {
+                    const {withdraw, deposit} = data;
+                    data.available.balance = deposit.total - withdraw.total;
+                })
+                .then(()=> {
+                    const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
+                    setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
+                })
+            })
         })
-
 
 
 });
