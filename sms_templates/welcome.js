@@ -9,7 +9,6 @@ Account Balance: ${account.balance}`;
 
         axios(`https://portal.nigeriabulksms.com/api/?username=enaland39@gmail.com&password=doxabet2020&message=${body}&sender=Enaland&verbose=true&mobiles=234${String(account.phone_number).slice(1)}`)
         .then(res => {
-            console.log("sending sms")
             console.log(res.data);
         })
 }

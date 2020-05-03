@@ -72,18 +72,10 @@ router.get("/", ensureAuthenticated, async (req,res) => {
         }
     });
 
-    Promise.all([rd,rw,rt])
-        .then(() => {
-            const {withdraw, deposit} = data;
-            data.available.balance = deposit.total - withdraw.total;
-        })
-        .then(()=> {
-            const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
-            setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
-        })
-
-
-
+    const {withdraw, deposit} = data;
+    data.available.balance = deposit.total - withdraw.total;
+    const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
+    setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
 });
 
 module.exports = router;
