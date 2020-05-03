@@ -98,7 +98,7 @@ router.get("/", ensureAuthenticated, async (req,res) => {
     }
 
 
-    Promise.all([doDeposit, doTransfer, doWithDraw])
+    Promise.all([doDeposit(), doTransfer(), doWithDraw()])
         .then(() => {
             const {withdraw, deposit} = data;
             data.available.balance = deposit.total - withdraw.total;
