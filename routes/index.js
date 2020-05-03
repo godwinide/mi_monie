@@ -33,10 +33,11 @@ router.get("/", ensureAuthenticated, async (req,res) => {
     const history = await History.find({status: "success"}).sort({date: -1}).limit(10);
 
 
-    Promise.all(deposits, withdraws, transfers, history)
-        .then((deposits, withdraws, transfers, history) => {
-                    // deposits
-            const rd = deposits.forEach(e => {
+    // deposits
+
+    function doDeposit(){
+        return new Promise((resolve, reject) => {
+            deposits.forEach((e, index, arr) => {
                 const date = new Date();
                 const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
                 const trans_date = new Date(`${e.date}`);
@@ -47,10 +48,18 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                 }else{
                     data.deposit.total += e.amount
                 }
-            });
 
-            // withdraws
-            const rw = withdraws.forEach(e => {
+                if(index ===arr.length){
+                    resolve("done")
+                }
+            });
+        })
+    }
+
+    function doWithDraw(){
+        // withdraws
+        return new Promise((resolve, reject) => {
+            withdraws.forEach(e => {
                 const date = new Date();
                 const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
                 const trans_date = new Date(`${e.date}`);
@@ -61,10 +70,18 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                 }else{
                     data.withdraw.total += e.amount
                 }
-            });
 
-            // transfers
-            const rt = transfers.forEach(e => {
+                if(index ===arr.length){
+                    resolve("done")
+                }
+            });
+        })
+    }
+
+    // transfers
+    function doTransfer(){
+        return new Promise((resolve,reject) => {
+            transfers.forEach(e => {
                 const date = new Date();
                 const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
                 const trans_date = new Date(`${e.date}`);
@@ -72,16 +89,26 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                     data.transfer.count++;
                     data.transfer.total_today += e.amount;
                 }
-            });
 
-            return data;
+                if(index ===arr.length){
+                    resolve("done")
+                }
+            });
         })
-        .then((data)=> {
-                const {withdraw, deposit} = data;
-                data.available.balance = deposit.total - withdraw.total;
-                const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
-                res.render("dashboard", {req, withdraws, transfers, deposits, history, available})
+    }
+
+
+    Promise.all([doDeposit, doTransfer, doWithDraw])
+        .then(() => {
+            const {withdraw, deposit} = data;
+            data.available.balance = deposit.total - withdraw.total;
         })
+        .then(()=> {
+            const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
+            setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
+        })
+
+
 
 });
 
