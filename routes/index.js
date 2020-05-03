@@ -50,7 +50,6 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                 }
 
                 if(index == arr.length-1){
-                    console.log("breakpoint1")
                     resolve("done")
                 }
             });
@@ -73,7 +72,6 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                 }
 
                 if(index == arr.length-1){
-                    console.log("breakpoint2")
                     resolve("done")
                 }
             });
@@ -84,7 +82,7 @@ router.get("/", ensureAuthenticated, async (req,res) => {
     function doTransfer(){
         return new Promise((resolve,reject) => {
             if(transfers.length == 0){
-                resolve("done");
+                resolve(data);
             }
             transfers.forEach((e, index, arr) => {
                 const date = new Date();
@@ -95,8 +93,7 @@ router.get("/", ensureAuthenticated, async (req,res) => {
                     data.transfer.total_today += e.amount;
                 }
                 if(index == arr.length-1){
-                    console.log("breakpoint3")
-                    resolve("done");
+                    resolve(data);
                 }
             });
         })
@@ -104,18 +101,15 @@ router.get("/", ensureAuthenticated, async (req,res) => {
 
         doWithDraw()
         .then(()=> {
-            console.log("breakpoint4")
             doDeposit()
             .then(() => {
-                console.log("breakpoint5")
                 doTransfer()
-                .then(() => {
-                    console.log("breakpoint6")
+                .then(data => {
                     const {withdraw, deposit} = data;
                     data.available.balance = deposit.total - withdraw.total;
+                    return data;
                 })
                 .then((data)=> {
-                    console.log("done")
                     const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
                     setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
                 })
