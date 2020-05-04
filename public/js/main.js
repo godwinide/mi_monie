@@ -296,7 +296,7 @@
               ticks: {
                 beginAtZero: true,
                 maxTicksLimit: 5,
-                stepSize: 10000,
+                stepSize: 100000,
                 fontFamily: "Poppins",
               },
               gridLines: {
