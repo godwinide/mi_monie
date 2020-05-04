@@ -70,7 +70,7 @@ app.use("/accounts", require("./routes/accounts"));
 app.use("/details", require("./routes/account_details"));
 app.use("/register", require("./routes/register"));
 app.use("/modify", require("./routes/modify"));
-app.use("/upload", require("./routes/upload"));
+// app.use("/upload", require("./routes/upload"));
 
 //printing
 app.use("/print_account", require("./routes/print_account"));

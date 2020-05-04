@@ -1,0 +1,6 @@
+.new-nav{
+    z-index: 9999999 !important;
+    width: 100%;
+    display: block;
+    position: absolute !important;
+}

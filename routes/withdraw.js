@@ -9,7 +9,7 @@ const { ensureAuthenticated } = require('../config/auth');
 
 
 router.get("/", ensureAuthenticated, (req,res) => {
-    res.render("withdraw", {req});
+    res.render("_withdraw", {req});
 });
 
 router.post("/", ensureAuthenticated, (req,res) => {
@@ -63,7 +63,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
                             {history: account_history}
                         )
                         .then(() => {
-                            return res.render("withdraw", {
+                            return res.render("_withdraw", {
                                 req,
                                 errors,
                                 account_number
@@ -122,7 +122,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
                             // send email
                             sendEmail(account, amount, "transaction", new_history);
                             setTimeout(()=>{
-                                return res.render("withdraw", {
+                                return res.render("_withdraw", {
                                     req,
                                     success
                                 });

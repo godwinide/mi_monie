@@ -27,6 +27,7 @@ body {
 
   .no-display{
     display: none !important;
+    opacity: 0;
   }
   
   header{

@@ -1,12 +1,16 @@
+<% if(req.isAuthenticated()){ %>
+    <%- include("./navbar") %>
+<% } %>
+
 <div class="row m-auto container register-wrap">
-    <form class="col-md-12 container mt-5" action="/register/account" method="POST">
-        <h1 class="reg-title">register an account</h1>
+    <form class="col-md-12 container mt-5" action="/register/account text-white" method="POST">
+        <h1 class="reg-title text-white">Register an account</h1>
 
         <div>
             <%- include ("./partials/messages") %>
         </div>
 
-    <div class="form-row">
+    <div class="form-row text-white">
         <div class="col-md-4 mb-3">
         <label for="firstame">First name (Required)</label>
         <input type="firstname" value="<%= typeof firstname != 'undefined' ? firstname : '' %>" name="firstname" class="form-control" id="firstame" placeholder="First name" required />
@@ -23,7 +27,7 @@
         </div>
     </div>
 
-    <div class="form-row">
+    <div class="form-row text-white">
         <div class="col-md-4 mb-3">
         <label for="address1">Address 1 (Required)</label>
         <input type="address" value="<%= typeof address1 != 'undefined' ? address1 : '' %>" name="address1" class="form-control" id="address1" placeholder="House Address" required />
@@ -40,7 +44,7 @@
         </div>
     </div>
 
-    <div class="form-row">
+    <div class="form-row text-white">
         <div class="col-md-4 mb-3">
             <label for="Email">Email (Required)</label>
             <input type="email" value="<%= typeof email != 'undefined' ? email : '' %>" name="email" class="form-control" id="Email" placeholder="Email" required/>
@@ -55,7 +59,7 @@
         </div>
     </div>
 
-    <div class="form-row">
+    <div class="form-row text-white">
         <div class="col-md-4 mb-3">
             <label for="pin1">Secret PIN (Required)</label>
             <input type="pin" name="pin1" class="form-control" id="pin1" placeholder="Enter a five digit secret pin" required/>
@@ -70,7 +74,7 @@
         </div>
     </div>
 
-    <div class="form-row">
+    <div class="form-row text-white">
         <div class="col-md-4 mb-3">
             <label for="bvn">BVN (Optional)</label>
             <input type="pin" name="bvn" class="form-control" id="bvn" placeholder="BVN"/>

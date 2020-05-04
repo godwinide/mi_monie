@@ -41,7 +41,6 @@ router.get("/", ensureAuthenticated, async (req,res) => {
             data.deposit.count++;
             data.deposit.total_today += e.amount;
             data.deposit.total += e.amount;
-            data.deposit.total += e.amount
         
     });
 
@@ -53,7 +52,6 @@ router.get("/", ensureAuthenticated, async (req,res) => {
             data.withdraw.count++;
             data.withdraw.total_today += e.amount;
             data.withdraw.total += e.amount;
-            data.withdraw.total += e.amount
     });
 
     // transfers
@@ -72,11 +70,8 @@ router.get("/", ensureAuthenticated, async (req,res) => {
         })
         .then(()=> {
             const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
-            setTimeout(()=> res.render("dashboard", {req, withdraws, transfers, deposits, history, available}),0)
+            setTimeout(()=> res.render("admin/_dashboard", {req, withdraws, transfers, deposits, history, available}),0)
         })
-
-
-
 });
 
 module.exports = router;

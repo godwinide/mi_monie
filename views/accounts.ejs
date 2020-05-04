@@ -1,4 +1,6 @@
-
+<% if(req.isAuthenticated()){ %>
+  <%- include("./navbar") %>
+<% } %>
 <h2 class="text-white text-center mt-3">Accounts</h2>
 
   <div class="container text-white">

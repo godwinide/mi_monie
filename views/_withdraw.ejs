@@ -1,0 +1,193 @@
+<div class="page-wrapper">
+    <!-- HEADER MOBILE-->
+    <header class="header-mobile d-block d-lg-none">
+        <div class="header-mobile__bar">
+            <div class="container-fluid">
+                <div class="header-mobile-inner">
+                    <a class="logo" href="/">
+                        <h4>welcome <%=req.user.username %></h4>
+                    </a>
+                    <button class="hamburger hamburger--slider" type="button">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar-mobile">
+            <div class="container-fluid">
+                <ul class="navbar-mobile__list list-unstyled">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="has-sub">
+                            <a class="js-arrow" href="/">
+                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="/deposit">
+                                <i class="fas fa-piggy-bank"></i>Deposit</a>
+                        </li>
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="/withdraw">
+                                <i class="fas fa-money-bill"></i>Withdraw</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="/transfer">
+                                <i class="fas fa-exchange-alt"></i>Transfer</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-head-side-mask"></i>Covid-19 Live Update(comming soon)</a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- END HEADER MOBILE-->
+
+    <!-- MENU SIDEBAR-->
+        <!-- MENU SIDEBAR-->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="#">
+                    <h4>welcome <%=req.user.username %></h4>
+                </a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <ul class="list-unstyled navbar__list">
+                            <li class="has-sub">
+                                <a class="js-arrow" href="/">
+                                    <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="/deposit">
+                                    <i class="fas fa-piggy-bank"></i>Deposit</a>
+                            </li>
+                            <li class="active has-sub">
+                                <a class="js-arrow" href="/withdraw">
+                                    <i class="fas fa-money-bill"></i>Withdraw</a>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="/transfer">
+                                    <i class="fas fa-exchange-alt"></i>Transfer</a>
+                            </li>
+                            <li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-head-side-mask"></i>Covid-19 Live Update(comming soon)</a>
+                            </li>
+                        </ul>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+    <!-- END MENU SIDEBAR-->
+
+                <!-- HEADER DESKTOP-->
+                <%- include("./headerDesk") %>
+                <!-- HEADER DESKTOP-->
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container">
+        <!-- HEADER DESKTOP-->
+        <!-- HEADER DESKTOP-->
+
+        <!-- MAIN CONTENT-->
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <h3 class="text-center title-2">Withdraw</h3>
+                                    </div>
+                                    <hr>
+                                    <form method="post">
+                                        <div>
+                                            <%- include ("./partials/messages") %>
+                                        </div>
+                                        <div>
+                                            <%- include ("./partials/success_msg") %>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cc-number" class="control-label mb-1">Account Number</label>
+                                            <input id="account_number101" name="account_number" type="number" class="form-control"
+                                                >
+                                            <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount" class="control-label mb-1">Withdraw amount</label>
+                                            <input id="amount" name="amount" type="number" class="form-control" aria-required="true">
+                                        </div>
+                                        <div>
+                                            <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                                <i class="fa fa-lock fa-lg"></i>&nbsp;
+                                                <span id="payment-button-amount">Withdraw</span>
+                                                <span id="payment-button-sending" style="display:none;">Withdrawing…</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 text-white">
+                            <div class="account-info"></div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    const acc = document.querySelector("#account_number101");
+    const result = document.querySelector(".account-info");
+    const selfCheck = document.querySelector("#self");
+    const will_show = document.querySelectorAll(".will_show");
+
+
+    // get accounts
+    async function getAccounts(){
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', '/api/getAccounts');
+
+        xhr.send();
+
+        xhr.onload = async () => {
+            if(xhr.status != 200){
+                getAccounts();
+            }else{
+                const accounts = await JSON.parse(xhr.response);
+                console.log(accounts);
+                acc.addEventListener("input", e => {
+                accounts.forEach(e => {
+                    if(e.account_number == acc.value){
+                        result.innerHTML = `
+                        <div class="row p-3 bg-light text-white" style="color: #fff !important;">
+                        <div class="col-12 text-primary"><h3>Account Name: ${e.account_name}</h3></div>
+                        <div class="col-12 text-white"><h3>Available Balance: ${e.account_balance}</h3></div>
+                        <div class="col-12 text-white"><h3>Last Transaction: ${e.last_transaction ? (e.last_transaction.transaction_type + "(" + e.last_transaction.amount + ")") : "None" } </h3></div>
+                    </div>
+                        `;
+                    }else{
+                        result.innerHTML = ``;
+                    }
+                })
+            });
+
+            }
+        }
+    }
+
+    getAccounts();
+
+
+</script>

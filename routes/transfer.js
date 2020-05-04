@@ -9,7 +9,7 @@ const { ensureAuthenticated } = require('../config/auth');
 
 
 router.get("/", ensureAuthenticated, (req,res) => {
-    res.render("transfer", {req});
+    res.render("_transfer", {req});
 });
 
 router.post("/", ensureAuthenticated, (req,res) => {
@@ -27,7 +27,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
     }
 
     if(errors.length > 0){
-        return res.render("transfer", {
+        return res.render("_transfer", {
             req,
             account_number,
             account_number2,
@@ -39,7 +39,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
         // check if account exists
         if(!account1){
             errors.push({msg: "no matching account for transfering account number"});
-            return res.render("transfer", {
+            return res.render("_transfer", {
                 req,
                 account_number,
                 account_number2,
@@ -49,7 +49,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
         // check if balance is more tan amount
         if(parseInt(account1.balance) < parseInt(amount)){
             errors.push({msg: "insufficient funds in transfering account"});
-            return res.render("transfer", {
+            return res.render("_transfer", {
                 req,
                 account_number,
                 account_number2,
@@ -61,7 +61,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
             // check if account exists
             if(!account2){
                 errors.push({msg: "no matching account for receiver's account number"});
-                return res.render("transfer", {
+                return res.render("_transfer", {
                     account_number,
                     account_number2,
                     errors
@@ -224,7 +224,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
                                     phone_number: account1.phone_number,
                                     status: "success"
                                 });
-                                return res.render("transfer", {
+                                return res.render("_transfer", {
                                     success,
                                     req
                                 })

@@ -15,7 +15,7 @@ const { ensureAuthenticated } = require('../config/auth');
 router.get("/", ensureAuthenticated, (req,res) => {
     Account.find({})
         .then(accounts => {
-            res.render("deposit", {req, accounts});
+            res.render("_deposit", {req, accounts});
         })
 });
 
@@ -37,7 +37,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
     }
 
     if(errors.length > 0){
-        return res.render("deposit", {
+        return res.render("_deposit", {
             req,
             errors,
             account_number,
@@ -60,7 +60,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
             }
 
             if(errors.length > 0){
-                return res.render("deposit", {
+                return res.render("_deposit", {
                     req,
                     errors,
                     account_number,
@@ -122,7 +122,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
                         sendSMS(account, amount, "transaction", new_account_history)
                         // send email
                         sendEmail(account, amount, "transaction", new_account_history);
-                        return res.render("deposit", {
+                        return res.render("_deposit", {
                             req,
                             success
                         });
@@ -142,7 +142,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
             }
 
             if(errors.length > 0){
-                return res.render("deposit", {
+                return res.render("_deposit", {
                     req,
                     errors,
                     account_number,
@@ -207,7 +207,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
                         sendSMS(account, amount, "transaction", new_account_history)
                         // send email
                         sendEmail(account, amount, "transaction", new_account_history);
-                        return res.render("deposit", {
+                        return res.render("_deposit", {
                             req,
                             success
                         });
