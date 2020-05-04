@@ -54,6 +54,9 @@ app.use(express.static("./public"));
 
 // Routes
 
+// covid19
+app.use("/covid19", require("./routes/covid19"));
+
 // admin routes
 app.use("/admin", require("./routes/admin/admin"));
 app.use("/admin/login", require("./routes/admin/login"));

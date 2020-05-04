@@ -6,7 +6,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="/">
-                            <h4>welcome <%=req.user.username %></h4>
+                            <h4>welcome</h4>
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -19,7 +19,7 @@
             <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="/">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
@@ -35,7 +35,7 @@
                             <a class="js-arrow" href="/transfer">
                                 <i class="fas fa-exchange-alt"></i>Transfer</a>
                         </li>
-                        <li class="has-sub">
+                        <li class="active has-sub">
                             <a class="js-arrow" href="/covid19">
                                 <i class="fa fa-tachometer-alt"></i>Covid-19 Live Update</a>
                         </li>
@@ -49,13 +49,13 @@
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="#">
-                    <h4>welcome <%=req.user.username %></h4>
+                    <h4>welcome</h4>
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="/">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
@@ -71,7 +71,7 @@
                             <a class="js-arrow" href="/transfer">
                                 <i class="fas fa-exchange-alt"></i>Transfer</a>
                         </li>
-                        <li class="has-sub">
+                        <li class="active has-sub">
                             <a class="js-arrow" href="/covid19">
                                 <i class="fa fa-tachometer-alt"></i>Covid-19 Live Update</a>
                         </li>
@@ -81,7 +81,7 @@
         </aside>
         <!-- END MENU SIDEBAR-->
             <!-- HEADER DESKTOP-->
-            <%- include("../headerDesk") %>
+            <%- include("./headerDesk") %>
            <!-- HEADER DESKTOP-->
         <!-- PAGE CONTAINER-->
         <div class="page-container">
@@ -92,7 +92,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">overview</h2>
+                                    <h2 class="title-1">Total Covid19 Cases Nigeria</h2>
                                 </div>
                             </div>
                         </div>
@@ -102,11 +102,11 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="fa fa-piggy-bank"></i>
+                                                <i class="fa fa-viruses"></i>
                                             </div>
                                             <div class="text">
-                                                <h2>(₦)<%= deposits.total_today %></h2>
-                                                <span>Deposits</span>
+                                                <h2><%= data.summary.confirmed_cases %></h2>
+                                                <span>Confirmed Cases</span>
                                             </div>
                                         </div>
                                     </div>
@@ -117,11 +117,11 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="fa fa-money-bill"></i>
+                                                <i class="fa fa-viruses"></i>
                                             </div>
                                             <div class="text">
-                                                <h2>(₦)<%= withdraws.total_today %></h2>
-                                                <span>Withdraws</span>
+                                                <h2><%= data.summary.active %></h2>
+                                                <span>Active Cases</span>
                                             </div>
                                         </div>
                                     </div>
@@ -132,11 +132,11 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="fa fa-exchange-alt"></i>
+                                                <i class="fa viruses"></i>
                                             </div>
                                             <div class="text">
-                                                <h2>(₦)<%= transfers.total_today %></h2>
-                                                <span>Transfers</span>
+                                                <h2><%= data.summary.discharged %></h2>
+                                                <span>Discharged</span>
                                             </div>
                                         </div>
                                     </div>
@@ -147,8 +147,8 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="text">
-                                                <h2>(₦)<%= available.balance %></h2>
-                                                <span>Availability</span>
+                                                <h2><%= data.summary.death %></h2>
+                                                <span>Deaths</span>
                                             </div>
                                         </div>
                                     </div>
@@ -159,30 +159,30 @@
                             <div class="col-lg-6">
                                 <div class="au-card recent-report">
                                     <div class="au-card-inner">
-                                        <h3 class="title-2">recent reports</h3>
+                                        <h3 class="title-2">Chart of COVID-19 Cases in Nigeria</h3>
                                         <br>
                                         <div class="chart-info">
                                             <div class="chart-info__left">
                                                 <div class="chart-note">
                                                     <span class="dot dot--blue"></span>
-                                                    <span>Deposits</span>
+                                                    <span>Confirmed</span>
                                                 </div>
                                                 <div class="chart-note mr-0">
                                                     <span class="dot dot--red"></span>
-                                                    <span>Withdraws</span>
+                                                    <span>Active</span>
                                                 </div>
                                                 <div class="chart-note mr-0">
                                                     <span class="dot dot--yellow"></span>
-                                                    <span>Transfers</span>
+                                                    <span>Discharged</span>
                                                 </div>
                                                 <div class="chart-note mr-0">
                                                     <span class="dot dot--green"></span>
-                                                    <span>Availability</span>
+                                                    <span>Deaths</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="recent-report__chart">
-                                            <canvas id="recent-rep-chart"></canvas>
+                                            <canvas id="recent-rep-chart2"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -190,25 +190,25 @@
                             <div class="col-lg-6">
                                 <div class="au-card chart-percent-card">
                                     <div class="au-card-inner">
-                                        <h3 class="title-2 tm-b-5">char by %</h3>
+                                        <h3 class="title-2 tm-b-5">chart by %</h3>
                                         <div class="row no-gutters">
                                             <div class="col-xl-6">
                                                 <div class="chart-note-wrap">
                                                     <div class="chart-note">
                                                         <span class="dot dot--blue"></span>
-                                                        <span>Deposits</span>
+                                                        <span>Confirmed</span>
                                                     </div>
                                                     <div class="chart-note mr-0">
                                                         <span class="dot dot--red"></span>
-                                                        <span>Withdraws</span>
+                                                        <span>Active</span>
                                                     </div>
                                                     <div class="chart-note mr-0">
                                                         <span class="dot dot--yellow"></span>
-                                                        <span>Transfers</span>
+                                                        <span>Discharged</span>
                                                     </div>
                                                     <div class="chart-note mr-0">
                                                         <span class="dot dot--green"></span>
-                                                        <span>Availability</span>
+                                                        <span>Death</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,29 +224,24 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <h2 class="title-1 m-b-25">Recent Transactions</h2>
+                                <h2 class="title-1 m-b-25">States affected in Nigeria</h2>
                                 <div class="table-responsive table--no-card m-b-40">
                                     <table class="table table-borderless table-striped table-earning">
                                         <thead>
                                             <tr>
-                                                <th>date</th>
-                                                <th>Type</th>
-                                                <th>Amount</th>
-                                                <th>Account Number</th>
-                                                <th class="text-right">Teller ID</th>
+                                                <th>State</th>
+                                                <th>Confirmed</th>
+                                                <th>Active</th>
+                                                <th>Discharged</th>
+                                                <th>Deaths</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% history.forEach(hist => { %>
+                                            <% data.datasets.forEach(c => { %>
                                                 <tr>
-                                                    <td class="date-value" scope="row"s>
-                                                        <%= hist.date.toLocaleDateString() %> &nbsp;
-                                                        <%= hist.date.toLocaleTimeString() %> 
-                                                    </td>
-                                                    <td scope="row"><%= hist.transaction_type %> </td>
-                                                    <td scope="row"><%= hist.amount %></td>
-                                                    <td scope="row"><%= hist.account_number %></td>
-                                                    <th scope="row"><%= hist.teller_id %></th>
+                                                    <% c.forEach(e => {%> 
+                                                        <th><%= e %></th>
+                                                    <%})%>
                                                 </tr>
                                             <%})%>
                                         </tbody>
@@ -269,7 +264,7 @@
         </div>
             <!-- data -->
     <input type="hidden" id="data"
-    value="<%= deposits.total_today %> <%= withdraws.total_today %> <%= transfers.total_today %> <%= available.balance %>"/>
+    value="<%= data.summary.confirmed_cases %> <%= data.summary.active %> <%= data.summary.discharged %> <%= data.summary.death %>">
     </div>
 </div>
 

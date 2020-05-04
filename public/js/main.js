@@ -296,7 +296,7 @@
               ticks: {
                 beginAtZero: true,
                 maxTicksLimit: 5,
-                stepSize: 100000,
+                // stepSize: 100000,
                 fontFamily: "Poppins",
               },
               gridLines: {
@@ -319,6 +319,78 @@
         }
       });
     }
+
+
+
+      // Recent Report covid
+      const confirmed = '#00b5e9'
+      const active = '#fa4251'
+      const discharged = '#d39e00'
+      const deaths = '#00ad5f'
+  
+      var ctx = document.getElementById("recent-rep-chart2");
+      if (ctx) {
+        ctx.height = 250;
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['confirmed', 'active', 'discharged', 'deaths'],
+            datasets: [
+              {
+                label: 'confirmed',
+                backgroundColor: [confirmed, active, discharged, deaths],
+                borderColor: 'transparent',
+                pointHoverBackgroundColor: '#fff',
+                borderWidth: 0,
+                data
+  
+              }
+            ]
+          },
+          options: {
+            maintainAspectRatio: true,
+            legend: {
+              display: false
+            },
+            responsive: true,
+            scales: {
+              xAxes: [{
+                gridLines: {
+                  drawOnChartArea: true,
+                  color: '#f2f2f2'
+                },
+                ticks: {
+                  fontFamily: "Poppins",
+                  fontSize: 12
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  maxTicksLimit: 5,
+                  // stepSize: 100000,
+                  fontFamily: "Poppins",
+                },
+                gridLines: {
+                  display: true,
+                  color: '#f2f2f2'
+  
+                }
+              }]
+            },
+            elements: {
+              point: {
+                radius: 0,
+                hitRadius: 10,
+                hoverRadius: 4,
+                hoverBorderWidth: 3
+              }
+            }
+  
+  
+          }
+        });
+      }
 
     // Percent Chart
     var ctx = document.getElementById("percent-chart");
