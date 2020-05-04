@@ -1,7 +1,10 @@
 const router = require("express").Router();
 const Account = require("../../model/Account");
+const History = require("../../model/History");
 const sendEmail = require("../../utils/sendMail");
 const { ensureAuthenticated } = require('../../config/auth');
+const sendSMS = require("../../utils/sendSMS");
+
 
 
 router.get("/", ensureAuthenticated, async (req,res) => {
@@ -39,6 +42,8 @@ router.post("/", ensureAuthenticated, async (req,res) => {
                 status: "success"
             }
 
+            const new_gen_history = new History(new_history);
+
             old_history.push(new_history);
 
             Account.findOneAndUpdate({_id:account.id}, {
@@ -46,8 +51,11 @@ router.post("/", ensureAuthenticated, async (req,res) => {
                 billing_balance: 0,
                 history: old_history
             })
+            .then(()=> {
+                new_gen_history.save();
+                sendSMS(account, amount, "transaction", new_history);
+            })
             .then(account => {
-                console.log(account)
                 sendEmail(account, new_history.amount, "transaction", new_history)
             })
             .catch(err => console.log(err))
