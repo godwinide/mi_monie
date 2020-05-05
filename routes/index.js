@@ -31,43 +31,36 @@ router.get("/", ensureAuthenticated, async (req,res) => {
     const withdraws = await History.find({transaction_type: "debit", status: "success"});
     const transfers = await History.find({type: "transfer", status: "success"});
     const history = await History.find({status: "success"}).sort({date: -1}).limit(10);
+    const accounts = await Account.find({balance:{$gt:0}});
 
 
     // deposits
     const rd = deposits.forEach(e => {
-        const date = new Date();
-        const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
-        const trans_date = new Date(`${e.date}`);
-            data.deposit.count++;
-            data.deposit.total_today += e.amount;
-            data.deposit.total += e.amount;
+        data.deposit.count++;
+        data.deposit.total_today += e.amount;
+        data.deposit.total += e.amount;
         
     });
 
     // withdraws
     const rw = withdraws.forEach(e => {
-        const date = new Date();
-        const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
-        const trans_date = new Date(`${e.date}`);
-            data.withdraw.count++;
-            data.withdraw.total_today += e.amount;
-            data.withdraw.total += e.amount;
+        data.withdraw.count++;
+        data.withdraw.total_today += e.amount;
+        data.withdraw.total += e.amount;
     });
 
     // transfers
     const rt = transfers.forEach(e => {
-        const date = new Date();
-        const today = new Date(`${date.getMonth()} ${date.getDay()} ${date.getFullYear()}`);
-        const trans_date = new Date(`${e.date}`);
-            data.transfer.count++;
-            data.transfer.total_today += e.amount;
+        data.transfer.count++;
+        data.transfer.total_today += e.amount;
     });
 
+
+    const at = accounts.forEach(e => {
+        data.available.balance += balance;
+    })
+
     Promise.all([rd,rw,rt])
-        .then(() => {
-            const {withdraw, deposit} = data;
-            data.available.balance = deposit.total - withdraw.total;
-        })
         .then(()=> {
             const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
             setTimeout(()=> res.render("admin/_dashboard", {req, withdraws, transfers, deposits, history, available}),0)

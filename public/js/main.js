@@ -392,69 +392,69 @@
         });
       }
 
-    // Percent Chart
-    var ctx = document.getElementById("percent-chart");
-    if (ctx) {
-      ctx.height = 280;
-      var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          datasets: [
-            {
-              label: "Transactions dataset",
-              data,
-              backgroundColor: [
-                '#00b5e9',
-                '#fa4251',
-                '#d39e00',
-                '#00ad5f'
-              ],
-              hoverBackgroundColor: [
-                '#00b5e9',
-                '#fa4251'
-              ],
-              borderWidth: [
-                0, 0
-              ],
-              hoverBorderColor: [
-                'transparent',
-                'transparent'
-              ]
+      
+      // Percent Chart
+      var ctx = document.getElementById("percent-chart2");
+      if (ctx) {
+        ctx.height = 280;
+        var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            datasets: [
+              {
+                label: "COVID-19 Datasets",
+                data,
+                backgroundColor: [
+                  '#00b5e9',
+                  '#fa4251',
+                  '#d39e00',
+                  '#00ad5f'
+                ],
+                hoverBackgroundColor: [
+                  '#00b5e9',
+                  '#fa4251'
+                ],
+                borderWidth: [
+                  0, 0
+                ],
+                hoverBorderColor: [
+                  'transparent',
+                  'transparent'
+                ]
+              }
+            ],
+            labels: [
+              'confirmed',
+              'active',
+              'discharged',
+              'deaths'
+            ]
+          },
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            cutoutPercentage: 55,
+            animation: {
+              animateScale: true,
+              animateRotate: true
+            },
+            legend: {
+              display: false
+            },
+            tooltips: {
+              titleFontFamily: "Poppins",
+              xPadding: 15,
+              yPadding: 10,
+              caretPadding: 0,
+              bodyFontSize: 16
             }
-          ],
-          labels: [
-            'Deposits',
-            'Withdraws',
-            'Transfers',
-            'Availablity'
-          ]
-        },
-        options: {
-          maintainAspectRatio: false,
-          responsive: true,
-          cutoutPercentage: 55,
-          animation: {
-            animateScale: true,
-            animateRotate: true
-          },
-          legend: {
-            display: false
-          },
-          tooltips: {
-            titleFontFamily: "Poppins",
-            xPadding: 15,
-            yPadding: 10,
-            caretPadding: 0,
-            bodyFontSize: 16
           }
-        }
-      });
+        });
+      }
+  
+    } catch (error) {
+      console.log(error);
     }
-
-  } catch (error) {
-    console.log(error);
-  }
-
 
 
   try {
