@@ -57,10 +57,10 @@ router.get("/", ensureAuthenticated, async (req,res) => {
 
 
     const at = accounts.forEach(e => {
-        data.available.balance += balance;
+        data.available.balance += e.balance;
     })
 
-    Promise.all([rd,rw,rt])
+    Promise.all([rd,rw,rt,at])
         .then(()=> {
             const {withdraw:withdraws, transfer:transfers, deposit:deposits, available} = data;
             setTimeout(()=> res.render("admin/_dashboard", {req, withdraws, transfers, deposits, history, available}),0)
