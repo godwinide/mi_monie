@@ -17,7 +17,7 @@
                 </div>
             </div>
             <nav class="navbar-mobile">
-                <div class="container-fluid">
+                <div class="container-fluid bg-dark text-white">
                     <ul class="list-unstyled navbar__list">
                         <li class="active has-sub">
                             <a class="js-arrow" href="/">
@@ -46,7 +46,7 @@
         <!-- END HEADER MOBILE-->
 
         <!-- MENU SIDEBAR-->
-        <aside class="menu-sidebar d-none d-lg-block">
+        <aside class="menu-sidebar d-none d-sm-block">
             <div class="logo">
                 <a href="#">
                     <h4>welcome <%=req.user.username %></h4>
@@ -81,7 +81,9 @@
         </aside>
         <!-- END MENU SIDEBAR-->
             <!-- HEADER DESKTOP-->
-            <%- include("../headerDesk") %>
+            <div class="d-none d-sm-none">
+                <%- include("../headerDesk") %>
+            </div>
            <!-- HEADER DESKTOP-->
         <!-- PAGE CONTAINER-->
         <div class="page-container">
@@ -214,7 +216,7 @@
                                             </div>
                                             <div class="col-xl-6">
                                                 <div class="percent-chart">
-                                                    <canvas id="percent-chart2"></canvas>
+                                                    <canvas id="percent-chart"></canvas>
                                                 </div>
                                             </div>
                                         </div>

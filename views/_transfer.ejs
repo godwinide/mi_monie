@@ -16,7 +16,7 @@
             </div>
         </div>
         <nav class="navbar-mobile">
-            <div class="container-fluid">
+            <div class="container-fluid bg-dark">
                 <ul class="navbar-mobile__list list-unstyled">
                     <ul class="list-unstyled navbar__list">
                         <li class="has-sub">
@@ -84,7 +84,9 @@
     <!-- END MENU SIDEBAR-->
 
                 <!-- HEADER DESKTOP-->
-                <%- include("./headerDesk") %>
+                <div class="d-none d-sm-none">
+                    <%- include("./headerDesk") %>
+                </div>
                 <!-- HEADER DESKTOP-->
 
     <!-- PAGE CONTAINER-->

@@ -16,7 +16,7 @@
             </div>
         </div>
         <nav class="navbar-mobile">
-            <div class="container-fluid">
+            <div class="container-fluid bg-dark">
                 <ul class="list-unstyled navbar__list">
                     <li class="has-sub">
                         <a class="js-arrow" href="/">
@@ -45,7 +45,9 @@
     <!-- END HEADER MOBILE-->
 
     <!-- HEADER DESKTOP-->
-    <%- include("./headerDesk") %>
+    <div class="d-none d-sm-none">
+        <%- include("./headerDesk") %>
+    </div>
     <!-- HEADER DESKTOP-->
 
     <!-- MENU SIDEBAR-->
