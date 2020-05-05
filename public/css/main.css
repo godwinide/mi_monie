@@ -371,6 +371,10 @@ iframe {
   .login100-form {
     width: 50%;
   }
+
+  .hi-mobile{
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {

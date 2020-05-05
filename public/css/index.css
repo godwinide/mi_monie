@@ -249,4 +249,9 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
-  
+  @media (max-width:1000px){
+    #hi-mobile{
+      display: none !important;
+      margin-left: -10000;
+    }
+  }
