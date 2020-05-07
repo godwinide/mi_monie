@@ -17,12 +17,8 @@ router.post("/", (req,res) => {
         return res.render("coupon/fetchCoupon", {req, errors});
     }
     
-    async function handleTriple(furl){
-        if(furl.length < 10){
-            returnError({msg:"Please enter url for triple page :("});
-        }
-
-        const url = furl;
+    async function handleTriple(){
+        const url = "https://www.triple.com.ng/index.php/bet9ja-pools-code/item/436";
         const response = await rp.get(url);
         const html = $.parseHTML(response);
         const table = $("#table", html);
@@ -49,7 +45,7 @@ router.post("/", (req,res) => {
             handleAblefast(date);
             break;
         case "triple":
-            handleTriple(url);
+            handleTriple();
             break;
         default: 
             returnError({msg: "Something went wrong :("})
