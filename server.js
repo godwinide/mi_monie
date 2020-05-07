@@ -86,6 +86,10 @@ app.use("/deposit", require("./routes/deposit"));
 app.use("/withdraw", require("./routes/withdraw"));
 app.use("/transfer", require("./routes/transfer"));
 
+// coupon routes
+// fecth coupon
+app.use("/coupon", require("./routes/admin/coupon/fetchCoupon"));
+
 // API routes
 app.use("/api/getAccounts", require("./routes/api/getAccounts"))
 

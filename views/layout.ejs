@@ -76,7 +76,16 @@
     <script src="/js/mdb.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/datatables.min.js"></script>
+    
+    <script src="/js/jquery.PrintArea.js" type="text/JavaScript" language="javascript"></script>
 
+    <script>
+                    const options = { mode : "popup", popClose : true };
+            // printing functionality
+            $("#print_button").click(function(){
+            $(".printArea").printArea(options);
+            });
+    </script>
     <script>
         // Basic example
         $(document).ready(function () {

@@ -31,11 +31,11 @@
                             <a class="js-arrow" href="/withdraw">
                                 <i class="fas fa-money-bill"></i>Withdraw</a>
                         </li>
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="/transfer">
                                 <i class="fas fa-exchange-alt"></i>Transfer</a>
                         </li>
-                        <li class="has-sub">
+                        <li class="active has-sub">
                             <a class="js-arrow" href="/coupon">
                                 <i class="fas fa-futbol"></i>Fetch Coupon</a>
                         </li>
@@ -73,7 +73,7 @@
                             <a class="js-arrow" href="/withdraw">
                                 <i class="fas fa-money-bill"></i>Withdraw</a>
                         </li>
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="/transfer">
                                 <i class="fas fa-exchange-alt"></i>Transfer</a>
                         </li>
@@ -92,7 +92,7 @@
     <!-- END MENU SIDEBAR-->
 
                 <!-- HEADER DESKTOP-->
-                    <%- include("./headerDesk") %>
+                    <%- include("../headerDesk") %>
                 <!-- HEADER DESKTOP-->
 
     <!-- PAGE CONTAINER-->
@@ -102,55 +102,48 @@
 
         <!-- MAIN CONTENT-->
         <div class="main-content">
-            <div class="section__content section__content--p30">
+            <div class="section__content sect</div>ion__content--p30">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="card-title">
-                                        <h3 class="text-center title-2">Deposit</h3>
+                                        <h3 class="text-center title-2">Fetch Coupon</h3>
                                     </div>
                                     <hr>
                                     <form method="post">
                                         <div>
-                                            <%- include ("./partials/messages") %>
+                                            <%- include ("../partials/messages") %>
                                         </div>
                                         <div>
-                                            <%- include ("./partials/success_msg") %>
+                                            <%- include ("../partials/success_msg") %>
                                         </div>
                                         <div class="form-group">
-                                            <label for="cc-number" class="control-label mb-1">Sender Account Number</label>
-                                            <input id="account_number11" name="account_number" type="number" class="form-control"
-                                                >
-                                            <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                            <label for="cc-number" class="control-label mb-1">Select Source</label>
+                                            <select name="source" id="source">
+                                                <option value="triple">Triple</option>
+                                                <option value="ablefast">Ablefast</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="cc-number2" class="control-label mb-1">Receipient Account Number</label>
-                                            <input id="account_number22" name="account_number2" type="number" class="form-control"
-                                                >
-                                            <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                            <label for="date" class="control-label mb-1">Date</label>
+                                            <input id="date" name="date" type="date" class="form-control" aria-required="false">
                                         </div>
                                         <div class="form-group">
-                                            <label for="amount" class="control-label mb-1">Amount</label>
-                                            <input id="amount" name="amount" type="number" class="form-control" aria-required="true">
+                                            <label for="url" class="control-label mb-1">Url(optioal)</label>
+                                            <input id="url" name="url" type="text" class="form-control" aria-required="false">
                                         </div>
                                         <div>
                                             <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
                                                 <i class="fa fa-lock fa-lg"></i>&nbsp;
-                                                <span id="payment-button-amount">Transfer</span>
-                                                <span id="payment-button-sending" style="display:none;">Transfering…</span>
+                                                <span id="payment-button-amount">Fetch Coupon</span>
+                                                <span id="payment-button-sending" style="display:none;">Fetching…</span>
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-lg-6 text-white">
-                            <div id="account-info"></div>
-                            <hr>
-                            <div id="account-info2"></div>
                         </div>
                 </div>
             </div>
@@ -158,61 +151,3 @@
     </div>
 
 </div>
-
-<script>
-    const acc = document.querySelector("#account_number11");
-    const acc2 = document.querySelector("#account_number22");
-    const result1 = document.querySelector("#account-info");
-    const result2 = document.querySelector("#account-info2");
-
-   // get accounts
-   (async function getAccounts(){
-       const xhr = new XMLHttpRequest();
-
-       xhr.open('GET', '/api/getAccounts');
-
-       xhr.send();
-
-       xhr.onload = async () => {
-           if(xhr.status != 200){
-               getAccounts();
-           }
-           else{
-               const accounts = await JSON.parse(xhr.response);
-               acc.addEventListener("input", e => {
-               accounts.forEach(e => {
-                   if(e.account_number == acc.value){
-                    result1.innerHTML = `
-                    <div class="row p-3 bg-light text-white" style="color: #fff !important;">
-                        <div class="col-12 text-primary"><h3>Account Name: ${e.account_name}</h3></div>
-                        <div class="col-12 text-white"><h3>Available Balance: ${e.account_balance}</h3></div>
-                        <div class="col-12 text-white"><h3>Last Transaction: ${e.last_transaction ? (e.last_transaction.transaction_type + "(" + e.last_transaction.amount + ")") : "None" } </h3></div>
-                    </div>`
-                   }else{
-                    result1.innerHTML = ``;
-                   }
-               }) 
-           });
-
-           acc2.addEventListener("input", e => {
-               accounts.forEach(e => {
-                   if(e.account_number == acc2.value){
-                    result2.innerHTML = `
-                    <div class="row p-3 bg-light text-white" style="color: #fff !important;">
-                        <div class="col-12 text-primary"><h3>Account Name: ${e.account_name}</h3></div>
-                        <div class="col-12 text-white"><h3>Available Balance: ${e.account_balance}</h3></div>
-                        <div class="col-12 text-white"><h3>Last Transaction: ${e.last_transaction ? (e.last_transaction.transaction_type + "(" + e.last_transaction.amount + ")") : "None" } </h3></div>
-                    </div>`;
-                   }else{
-                    result2.innerHTML = ``;
-                   }
-               })
-
-           });
-
-
-
-           }
-       }
-   })()
-</script>
