@@ -63,7 +63,7 @@ router.post("/", ensureAuthenticated, async (req,res) => {
 
 
     success.push({msg: "All accounts have been billed"})
-    res.render("admin/charge_accounts", {req, accounts, success})
+    res.redirect("/admin/billing")
 });
 
 

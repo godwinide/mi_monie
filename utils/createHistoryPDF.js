@@ -7,11 +7,10 @@ const top = {
 }
 
 function historyPDF(account_info, path) {
-  let doc = new PDFDocument({ size: "A4", margin: 50 });
+  let doc = new PDFDocument({ size: "A4" });
   generateHeader(doc, account_info);
   generateAccountInfo(doc, account_info);
   generateHistoryTable(doc, account_info.account.history)
-//   generateFooter(doc);
 
   doc.end();
   doc.pipe(fs.createWriteStream(path));
@@ -88,19 +87,36 @@ function generateHistoryTable(doc, history) {
     generateHr(doc, historyTableTop + 20);
     doc.font("Helvetica");
 
-    for (i = 0; i < history.length; i++) {
-      const item = history[i];
-      const position = historyTableTop + (i + 1) * 30;
-      generateTableRow(
-        doc,
-        position,
-        new Date(item.date).toDateString(),
-        item.transaction_type,
-        item.debit,
-        item.credit,
-        item.balance
-      );
-      generateHr(doc, position + 20);
+    if(history.length > 14){
+      for (i = history.length - 14, j = 0; j < 14; i++, j++) {
+        const item = history[i];
+        const position = historyTableTop + (j + 1) * 30;
+        generateTableRow(
+          doc,
+          position,
+          new Date(item.date).toDateString(),
+          item.transaction_type,
+          item.debit,
+          item.credit,
+          item.balance
+        );
+        generateHr(doc, position + 20);
+      }
+    }else{
+      for (i = 0; i < history.length; i++) {
+        const item = history[i];
+        const position = historyTableTop + (i + 1) * 30;
+        generateTableRow(
+          doc,
+          position,
+          new Date(item.date).toDateString(),
+          item.transaction_type,
+          item.debit,
+          item.credit,
+          item.balance
+        );
+        generateHr(doc, position + 20);
+      }
     }
 
 }
@@ -132,18 +148,6 @@ function generateTableRow(
       .text(time, 0, top.top + y, { align: "right" });
   }
   
-
-
-
-function generateFooter(doc) {
-  doc
-    .fontSize(10)
-    .text("For enquiries contact us:", 50, top.top + 30)
-    .text("Phone: 08078561982", 50, top.top + 50)
-    .text("Email: enaland.com", 50, top.top + 70)
-    .text("website: enaland.com", 50, top.top + 90)
-}
-
 
 
 module.exports = {

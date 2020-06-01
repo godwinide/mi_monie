@@ -145,20 +145,22 @@
             table.classList.add("table-earning");
 
             table.querySelectorAll("thead").forEach(e => {
-                e.classList.remove("lighten-3")
-                e.classList.remove("purple")
+                // e.classList.remove("lighten-3")
+                // e.classList.remove("purple")
+                e.classList.remove("bg-light");
             })
 
             table.querySelectorAll("td").forEach(e => {
-                e.classList.remove("white-text")
-                e.classList.remove("purple")
-                e.classList.remove("lighten-2")
+                // e.classList.remove("white-text")
+                // e.classList.remove("purple")
+                // e.classList.remove("lighten-2")
+                e.classList.remove("bg-light");
                 e.setAttribute("contenteditable", "true");
             })
             table.querySelectorAll("th").forEach(e => {
-                e.classList.remove("white-text");
-                e.classList.remove("purple");
-                e.classList.remove("lighten-2");
+                // e.classList.remove("white-text");
+                // e.classList.remove("purple");
+                e.classList.remove("bg-light");
                 e.setAttribute("contenteditable", "true");
             })
 
