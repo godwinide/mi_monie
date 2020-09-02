@@ -112,7 +112,7 @@ router.post("/", ensureAuthenticated, (req,res) => {
 
                         Account.findOneAndUpdate(
                             {account_number},
-                            {balance: new_history.balance,$inc:{billing_balance: account.billing_balance + 3}, history: account_history}
+                            {balance: new_history.balance, $inc:{billing_balance: 3}, history: account_history}
                         )
                         .then(() => {
                             
