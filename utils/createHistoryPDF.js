@@ -1,150 +1,79 @@
-const fs = require("fs");
-const path = require("path")
-const PDFDocument = require("pdfkit");
-
-const top = {
-    top: 0
-}
+const PDFKit = require("pdfkit");
+const path = require("path");
 
 
-let doc = new PDFDocument({ size: "A4" });
-
-function historyPDF(account_info, path) {
-  generateHeader(doc, account_info);
-  generateAccountInfo(doc, account_info);
-  generateHistoryTable(doc, account_info.account.history)
-
-  doc.end();
-  doc.pipe(fs.createWriteStream(path));
-}
-
-function generateHeader(doc, account_info) {
-  if(account_info.account.passport == true){
-      doc
-      .image(path.join(__dirname, '../', `/public/passports/${account_info.account.account_number}.jpg`), 50, 130, { width: 50 })
-      .fillColor("#444444")
-      .fontSize(10)
-      .text("Enaland NIG LTD", 110, 57)
-      .text("200 okunwague street", 400, 57)
-      .text("Benin city, Edo state", 400, 67)
-      .moveDown();
-    }else{
-      doc
-      .fillColor("#444444")
-      .fontSize(10)
-      .text("Enaland NIG LTD", 110, 57)
-      .text("200 okunwague street", 400, 57)
-      .text("Benin city, Edo state", 400, 67)
-      .moveDown();
-    }
-  }
-
-function generateAccountInfo(doc, account_info) {
-  doc
-    .fillColor("#444444")
+module.exports = (account, res) => {
+    const fullName = `${account.firstname} ${account.lastname} ${account.middlename}`;
+    const doc = new PDFKit({autoFirstPage:true});
+    doc
+    .fontSize(16)
+    .font("Helvetica-Bold")
+    .text("Enaland Global Limited", 20, 30)
+    .moveDown(2)
+    .lineCap('butt')
+    .moveTo(20, 50)
+    .lineTo(600, 50)
+    .stroke()
+    .image(path.resolve(__dirname, "../public", "img", "logo.png"), 520, 10, {width: 60})
+    .moveDown(-1)
     .fontSize(15)
-    .text("History of " + account_info.name, 150, 160);
-
-  const customerInformationTop = 200;
-
-  doc
-    .fontSize(10)
-    .text("Account Name:", 50, customerInformationTop)
-    .font("Helvetica-Bold")
-    .text(account_info.name, 150, customerInformationTop)
+    .moveDown(.5)
+    .font("Times-Roman")
+    .text(`Account History Of ${fullName}`, {align:"center"})
+    .moveDown(1)
     .font("Helvetica")
-    .text("Account Number:", 50, customerInformationTop + 15)
-    .font("Helvetica-Bold")
-    .text(account_info.account.account_number, 150, customerInformationTop + 15)
-    .font("Helvetica")
-    .text("Phone Number:", 50, customerInformationTop + 30)
-    .font("Helvetica-Bold")
-    .text(account_info.account.phone_number, 150, customerInformationTop + 30)
-    .font("Helvetica")
-    .text("Gender:", 50, customerInformationTop + 45)
-    .font("Helvetica-Bold")
-    .text(account_info.account.gender, 150, customerInformationTop + 45)
-    .font("Helvetica")
-    .text("Email:", 50, customerInformationTop + 60)
-    .text(account_info.account.email, 150, customerInformationTop + 60)
-    .font("Helvetica")
-    .moveDown();
-}
-
-// history table
-function generateHistoryTable(doc, history) {
-    let p_top = 10;
-    const historyTableTop = 330;
-    let lastEndl = 0;
-  
-    doc.font("Helvetica-Bold");
-    generateTableRow(
-      doc,
-      historyTableTop,
-      "Date",
-      "Amount Type",
-      "Withdrawer",
-      "Deposit",
-      "Balance",
-    );
-    generateHr(doc, historyTableTop + 20);
-    doc.font("Helvetica");
+    .fontSize(11)
+    .text(`Account ID:           ${account.account_number}`, 80, 120)
+    .moveDown(.5)
+    .text(`First Name:           ${account.firstname}`)
+    .moveDown(.5)
+    .text(`Last Name:            ${account.lastname}`)
+    .moveDown(.5)
+    .text(`Middle Name:          ${account.middlename}`)
+    .moveDown(2)
+    .text("Date", 10, 225)
+    .text("Type", 140, 225)
+    .text("Withdrawer", 240, 225)
+    .text("Deposit", 370, 225)
+    .text("Balance", 500, 225)
+    .underline(10, 245, doc.page.width-20, 3)
+    .stroke()
 
 
 
-      for (i = 0; i < history.length; i++) {
-        const item = history[i];
-        let position = 0;
-        if(i != 0 && i%14 === 0 && i !== lastEndl){
-          lastEndl = i;
-          doc.addPage();
-        }else{
-          position = historyTableTop + (i + 1) * 30;
-        }
-        generateTableRow(
-          doc,
-          position,
-          new Date(item.date).toDateString(),
-          item.transaction_type,
-          item.debit,
-          item.credit,
-          item.balance
-        );
-        generateHr(doc, position + 20);
+    let pageAdded = false;
+    let counter = 0;
+    let height = 185;
+    let pageLimit = 13
+
+    function addRow(doc,h,height,i) {
+            doc
+            .text(new Date(h.date).toLocaleDateString(), 10, height + (40 * (i + 1)))
+            .text(h.transaction_type, 140, height + (40 * (i + 1)))
+            .text(h.debit,240, height + (40 * (i + 1)))
+            .text(h.credit, 370, height + (40 * (i + 1)))
+            .text(account.balance, 500, height + (40 * (i + 1)))
+            .underline(10, height + 10 + (40 * (i + 1)), doc.page.width-20, 3)
+            .stroke()        
+    }
+
+
+
+    account.history.forEach((h, i) => {
+      counter+=1;
+      if(counter % pageLimit === 0 && i !== 0){
+           doc.addPage()
+           pageAdded = true;
+           height = 0;
+           counter = 0;
+           pageLimit = 17;
+           addRow(doc,h, height, counter);
+      }else{
+          addRow(doc,h, height, counter);
       }
+  })
+    
 
+    doc.pipe(res);
+    doc.end();
 }
-
-function generateHr(doc, y) {
-    doc
-        .strokeColor("#aaaaaa")
-        .lineWidth(1)
-        .moveTo(50, y)
-        .lineTo(550, y)
-        .stroke();
-}
-
-function generateTableRow(
-    doc,
-    y,
-    type,
-    amount,
-    balance,
-    date,
-    time
-  ) {
-    doc
-      .moveDown(1)
-      .fontSize(10)
-      .text(type, 50, top.top + y)
-      .text(amount, 150, top.top + y)
-      .text(balance, 280, top.top + y, { width: 90, align: "right" })
-      .text(date, 370, top.top + y, { width: 90, align: "right" })
-      .text(time, 0, top.top + y, { align: "right" });
-  }
-  
-
-
-module.exports = {
-  historyPDF
-};

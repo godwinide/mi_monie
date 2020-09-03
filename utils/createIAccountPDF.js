@@ -19,7 +19,7 @@ function generateHeader(doc, account_info) {
     .image(path.join(__dirname, '../', `/public/passports/${account_info.account.account_number}.jpg`), 50, 130, { width: 50 })
     .fillColor("#444444")
     .fontSize(10)
-    .text("Enaland NIG LTD", 110, 57)
+    .text("Enaland Global LTD", 110, 57)
     .text("200 okunwague street", 400, 57)
     .text("Benin city, Edo state", 400, 67)
     .moveDown();
