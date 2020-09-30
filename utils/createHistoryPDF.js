@@ -52,7 +52,7 @@ module.exports = (account, res) => {
             .text(h.transaction_type, 140, height + (40 * (i + 1)))
             .text(h.debit,240, height + (40 * (i + 1)))
             .text(h.credit, 370, height + (40 * (i + 1)))
-            .text(h.current_balance, 500, height + (40 * (i + 1)))
+            .text(h.balance, 500, height + (40 * (i + 1)))
             .underline(10, height + 10 + (40 * (i + 1)), doc.page.width-20, 3)
             .stroke()        
     }
